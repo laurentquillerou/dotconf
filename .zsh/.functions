@@ -1,0 +1,23 @@
+# colors
+autoload -U colors
+colors
+
+# completion
+autoload -U compinit
+compinit
+
+# menu selection
+autoload menu-select
+
+# VCS
+autoload -Uz vcs_info
+
+# zstyle
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors ''
+zstyle ':vcs_info:*' enable git
+
+precmd ()
+{
+    vcs_info
+}

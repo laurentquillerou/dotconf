@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+# Exports
+#export EDITOR="vim"
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;33'
+
+# SSH agent
+if [ -z "${SSH_AUTH_SOCK}" ]; then
+  eval `ssh-agent -s`
+  ssh-add
+fi
+
+# Pager
+MOST=`which most`;
+if [ -x ${MOST} ]; then
+  export PAGER='most';
+fi
+
+# Prompt
+if [ ${UID} = 0 ]; then
+	LOGIN_COLOR=red
+else
+	LOGIN_COLOR=green
+fi
+export PS1="%F{white}%T%f %F{${LOGIN_COLOR}}%n%f@%F{yellow}%M%f:%F{cyan}%~%f %# "
+
+# Dev
+#export CFLAGS="-Wall -W -Werror -ansi -pedantic -pipe"
+#export MALLOC_OPTIONS='J'
+
+# OpenBSD specific
+if [ `uname -s` = "OpenBSD" ]; then
+	export PKG_PATH="http://ftp.fr.openbsd.org/pub/OpenBSD/`uname -r`/packages/`uname -m`/"
+	export CVSROOT="anoncvs@anoncvs.fr.openbsd.org:/cvs"
+fi
