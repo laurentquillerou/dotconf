@@ -25,11 +25,10 @@
 	l = log
 	lg = log --graph --pretty=oneline
 	lga = log --graph --decorate --all
-	lp = log --pretty
 	ls = log --stat
 	m = merge
+	p = pull
 	ph = push
-	pl = pull
 	r = remote
 	rb = rebase
 	rbi = rebase -i

@@ -1,9 +1,9 @@
-if [ -r ${HOME}/.zsh/.aliases ]; then
-	source ${HOME}/.zsh/.aliases;
-fi
-
 if [ -r ${HOME}/.zsh/.exports ]; then
 	source ${HOME}/.zsh/.exports;
+fi
+
+if [ -r ${HOME}/.zsh/.aliases ]; then
+	source ${HOME}/.zsh/.aliases;
 fi
 
 if [ -r ${HOME}/.zsh/.options ]; then

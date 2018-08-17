@@ -3,31 +3,29 @@ alias a=alias
 
 # Detect which `ls` flavor is in use
 case `uname -s` in
-	Linux)
-		LSFLAGS='--color=auto --group-directories-first'
-		APT=`which apt-get`
-		if [ -x ${APT} ]; then
-			a ac='apt-cache'
-			a ag='apt-get'
-			a up='ag update && ag -y upgrade && ag -y dist-upgrade && ag autoclean && ag --purge autoremove'
-		else
-			a y='yum'
-			a yi='y install'
-			a ys='y search'
-			a yu='y update'
-		fi
-		;;
-	Darwin)
-		LSFLAGS='-G'
-		;;
-	OpenBSD)
-		a maj='cd /usr; cvs -d$CVSROOT up -rOPENBSD_`uname -r | tr '.' '_'` -P src ports'
-		a up='pkg_add -ui -F update -F updatedepends'
-		;;
-	FreeBSD)
-		a maj='portsnap fetch update'
-		a up='pkg update && pkg upgrade'
-		;;
+  Linux)
+    LSFLAGS='--color=auto --group-directories-first'
+    APT=`which apt`
+    if [ -x ${APT} ]; then
+      a up='apt update && apt -y upgrade && apt -y dist-upgrade && apt autoremove --purge'
+    else
+      a y='yum'
+      a yi='y install'
+      a ys='y search'
+      a yu='y update'
+    fi
+    ;;
+  Darwin)
+    LSFLAGS='-G'
+    ;;
+  OpenBSD)
+    a maj='cd /usr; cvs -d$CVSROOT up -rOPENBSD_`uname -r | tr '.' '_'` -P src ports'
+    a up='pkg_add -ui -F update -F updatedepends'
+    ;;
+  FreeBSD)
+    a maj='portsnap fetch update'
+    a up='pkg update && pkg upgrade'
+    ;;
 esac
 
 # Aliases
@@ -35,40 +33,49 @@ a ..='cd ..'
 a ...='cd ../..'
 a ....='cd ../../..'
 a .....='cd ../../../..'
+a ap='ansible-playbook'
+a al='ansible-lint'
 a c='clear'
 a cd..='cd ..'
 a cp='cp -Ri'
 a d='dirs -v'
 a df='df -h'
+a dk='docker'
 a du='du -h'
 a e='emacs'
 a f='finger'
 a g='git'
 a gl='g log --graph --decorate --all'
-a grep='egrep'
-a gpass='openssl rand -base64 10'
-a gurl='curl --compressed'
+a grep='egrep --color=auto'
+a gen-pass='openssl rand -base64 10'
 a h='history'
-a ip='dig +short myip.opendns.com @resolver1.opendns.com'
 a j='jobs'
+a k='kubectl'
 a l='ls -l'
 a la='ls -lA'
 a ls="ls -h ${LSFLAGS}"
 a m='make'
 a mv='mv -i'
+a myip='dig +short myip.opendns.com @resolver1.opendns.com'
+a pipup="pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U --user"
+a pip3up="pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user"
 a rm='rm -Ri'
 a rot13='tr a-zA-Z n-za-mN-ZA-M'
 a rsync='rsync -a --progress'
 a sc='screen'
 a scp='scp -r'
-a svc='svn ci'
-a svo='svn co'
-a svu='svn up'
 a t='tmux'
 a tf='terraform'
+a tfa='terraform apply -auto-approve'
+a tfc='terraform console'
+a tfd='terraform destroy'
+a tfda='terraform destroy -auto-approve'
+a tfe='terraform env'
 a tff='terraform fmt'
+a tfg='terraform get -update=true'
+a tfv='terraform validate'
+a tfw='terraform workspace'
 a tl='t list-sessions'
 a v='vault'
 a vi='vim'
 a whoise='whois -h whois-servers.net'
-

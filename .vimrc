@@ -1,3 +1,9 @@
+" pathogen
+execute pathogen#infect()
+
+" turns on "detection", "plugin" and "indent"
+filetype plugin indent on
+
 " vim not vi
 set nocompatible
 
@@ -12,7 +18,8 @@ set number
 set ruler
 
 " highlight columns over 80
-au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+au BufWinEnter * let w:m1=matchadd('Error', '\%>120v.\+', -1)
+au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>160v.\+', -1)
 
 " higlight search
 set hlsearch
@@ -38,6 +45,18 @@ set nobackup
 " disable swapfiles
 set noswapfile
 
+" width of tab character
+set tabstop=2
+
+" amount of white space to be added
+set softtabstop=2
+
+" amount of whitespace to add in normal mode
+set shiftwidth=2
+
+" uses space instead of tabs
+set expandtab
+
 " intelligent backspace; :set bs=2
 set backspace=indent,eol,start
 
@@ -56,11 +75,14 @@ set autoindent
 " Enables syntax highlighting
 syntax on
 
+" Associate Jenkinsfile with groovy syntax
+au BufNewFile,BufRead Jenkinsfile setf groovy
+
 " title
 set title
 
 " color theme
-colorscheme torte
+colorscheme industry
 
 " Showmatcah
 set showmatch

@@ -1,35 +1,81 @@
 #!/usr/bin/env zsh
-# Exports
+# exports
 #export EDITOR="vim"
-export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
 
-# SSH agent
-if [ -z "${SSH_AUTH_SOCK}" ]; then
-  eval `ssh-agent -s`
+# ssh agent
+export HOSTNAME=`hostname -s`
+export SSH_AUTH_SOCK=${HOME}/.ssh/ssh-agent.${HOSTNAME}.sock
+ssh-add -l > /dev/null
+if [ $? -gt 0 ] ; then
+  ssh-agent -a "${SSH_AUTH_SOCK}" > ${HOME}/.ssh/ssh-agent.${HOSTNAME}.info
+  source ${HOME}/.ssh/ssh-agent.${HOSTNAME}.info
   ssh-add
 fi
 
-# Pager
+# pager
 MOST=`which most`;
 if [ -x ${MOST} ]; then
   export PAGER='most';
 fi
 
-# Prompt
+# prompt
 if [ ${UID} = 0 ]; then
-	LOGIN_COLOR=red
+  LOGIN_COLOR=red
 else
-	LOGIN_COLOR=green
+  LOGIN_COLOR=green
 fi
 export PS1="%F{white}%T%f %F{${LOGIN_COLOR}}%n%f@%F{yellow}%M%f:%F{cyan}%~%f %# "
 
-# Dev
-#export CFLAGS="-Wall -W -Werror -ansi -pedantic -pipe"
-#export MALLOC_OPTIONS='J'
-
-# OpenBSD specific
-if [ `uname -s` = "OpenBSD" ]; then
-	export PKG_PATH="http://ftp.fr.openbsd.org/pub/OpenBSD/`uname -r`/packages/`uname -m`/"
-	export CVSROOT="anoncvs@anoncvs.fr.openbsd.org:/cvs"
+# socks
+if [ -f ${HOME}/.socks ]; then
+  export TSOCKS_USER=${USER}
+  export TSOCKS_PASSWORD=`cat ~/.socks`
+  export TSOCKS_DEBUG=1
+  alias runsocks="tsocks"
 fi
+
+# OpenBSD
+if [ `uname -s` = "OpenBSD" ]; then
+  export CC="ch"
+  export PKG_PATH="http://ftp.${CC}.openbsd.org/pub/OpenBSD/`uname -r`/packages/`uname -m`/"
+  export CVSROOT="anoncvs@anoncvs.${CC}.openbsd.org:/cvs"
+fi
+
+# macOS
+if [ `uname -s` = "Darwin" ]; then
+  # arcanist
+  if [ -d "${HOME}/Library/php/arcanist/bin" ]; then
+    export PATH="${HOME}/Library/php/arcanist/bin:${PATH}"
+  fi
+  # python3
+  if [ -d "${HOME}/Library/Python/3.7/bin" ]; then
+     export PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
+  fi
+  # ovftool
+  if [ -d "/Applications/VMware Fusion.app/Contents/Library/VMware OVF Tool" ]; then
+     export PATH="/Applications/VMware Fusion.app/Contents/Library/VMware OVF Tool:${PATH}"
+  fi
+  # docker
+  if [ -S /var/run/docker.sock ]; then
+    export DOCKER_HOST=unix:///var/run/docker.sock
+  fi
+fi
+
+# jenkins
+if [ -r ${HOME}/.jenkins -a -r ${HOME}/.jenkins-url ]; then
+  export JENKINS_TOKEN=`cat ${HOME}/.jenkins`
+  export JENKINS_URL=`cat ${HOME}/.jenkins-url`
+  alias lint-pipe="curl --user ${JENKINS_TOKEN} -X POST -F 'jenkinsfile=<Jenkinsfile' https://${JENKINS_URL}/pipeline-model-converter/validate"
+fi
+
+# Artifactory
+if [ -r ${HOME}/.artifacory-url ]; then
+  export ART_URL=`cat ${HOME}/.artifacory-url`
+fi
+
+# Xray
+if [ -r ${HOME}/.xray-url ]; then
+  export XRAY_URL=`cat ${HOME}/.xray-url`
+fi
+
