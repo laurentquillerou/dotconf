@@ -79,3 +79,6 @@ if [ -r ${HOME}/.xray-url ]; then
   export XRAY_URL=`cat ${HOME}/.xray-url`
 fi
 
+# Terraform
+export TF_LOG=DEBUG
+

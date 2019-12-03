@@ -42,3 +42,4 @@ setopt flowcontrol
 
 # Correction
 setopt correct_all
+

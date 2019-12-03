@@ -21,3 +21,4 @@ precmd ()
 {
     vcs_info
 }
+

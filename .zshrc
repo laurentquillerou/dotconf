@@ -14,4 +14,9 @@ if [ -r ${HOME}/.zsh/.functions ]; then
 	source ${HOME}/.zsh/.functions;
 fi
 
+if [ -r ${HOME}/.zsh/.sources ]; then
+	source ${HOME}/.zsh/.sources;
+fi
+
 mkdir -p -m 711 /tmp/${USER}
+
