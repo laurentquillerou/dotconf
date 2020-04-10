@@ -49,12 +49,16 @@ if [ `uname -s` = "Darwin" ]; then
     export PATH="${HOME}/Library/php/arcanist/bin:${PATH}"
   fi
   # python3
-  if [ -d "${HOME}/Library/Python/3.7/bin" ]; then
-     export PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
+  PY_VERSION="3.8"
+  if [ -d "${HOME}/Library/Python/${PY_VERSION}/bin" ]; then
+     export PATH="${HOME}/Library/Python/${PY_VERSION}/bin:${PATH}"
   fi
   # ovftool
   if [ -d "/Applications/VMware Fusion.app/Contents/Library/VMware OVF Tool" ]; then
      export PATH="/Applications/VMware Fusion.app/Contents/Library/VMware OVF Tool:${PATH}"
+  fi
+  if [ -d "/Applications/VMware OVF Tool" ]; then
+    export PATH="/Applications/VMware OVF Tool:${PATH}"
   fi
   # docker
   if [ -S /var/run/docker.sock ]; then
@@ -80,5 +84,5 @@ if [ -r ${HOME}/.xray-url ]; then
 fi
 
 # Terraform
-export TF_LOG=DEBUG
+export TF_LOG=TRACE
 
