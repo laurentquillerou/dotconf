@@ -39,6 +39,7 @@
   r = remote
   rb = rebase
   rbi = rebase -i
+  rpsh = rev-parse --short HEAD
   st = status
   sta = stash
   t = tag
