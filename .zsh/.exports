@@ -49,7 +49,7 @@ if [ `uname -s` = "Darwin" ]; then
     export PATH="${HOME}/Library/php/arcanist/bin:${PATH}"
   fi
   # python3
-  PY_VERSION="3.8"
+  PY_VERSION="3.9"
   if [ -d "${HOME}/Library/Python/${PY_VERSION}/bin" ]; then
      export PATH="${HOME}/Library/Python/${PY_VERSION}/bin:${PATH}"
   fi

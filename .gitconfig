@@ -26,7 +26,7 @@
   ci = commit -a
   cim = commit -a -m
   co = checkout
-  com = checkout master
+  com = checkout main
   d = diff
   f = fetch
   l = log
