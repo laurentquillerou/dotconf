@@ -86,3 +86,9 @@ fi
 # Terraform
 export TF_LOG=TRACE
 
+# Proxmox
+if [ -r ${HOME}/.proxmox-user -a -r ${HOME}/.proxmox -a -r ${HOME}/.proxmox-url ]; then
+  export PROXMOX_USER=`cat ${HOME}/.proxmox-user`
+  export PROXMOX_PASSWD=`cat ${HOME}/.proxmox`
+  export PROXMOX_URL=`cat ${HOME}/.proxmox-url`
+fi
