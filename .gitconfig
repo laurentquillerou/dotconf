@@ -52,3 +52,8 @@
   metrics = true
   responsibilities = true
   timeline = true
+
+[pull]
+  rebase = true
+[rebase]
+  autoStash = true
