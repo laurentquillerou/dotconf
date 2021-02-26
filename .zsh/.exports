@@ -64,6 +64,10 @@ if [ `uname -s` = "Darwin" ]; then
   if [ -S /var/run/docker.sock ]; then
     export DOCKER_HOST=unix:///var/run/docker.sock
   fi
+  # vscode
+  if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
+     export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
+  fi
 fi
 
 # jenkins
