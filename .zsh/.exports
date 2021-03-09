@@ -102,5 +102,5 @@ if [ -r ${HOME}/.quay-user ]; then
   export Q_USER=`cat ${HOME}/.quay-user`
 fi
 if [ -r ${HOME}/.quay-token ]; then
-  export Q_USER=`cat ${HOME}/.quay-token`
+  export Q_TOKEN=`cat ${HOME}/.quay-token`
 fi
