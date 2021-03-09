@@ -96,3 +96,11 @@ if [ -r ${HOME}/.proxmox-user -a -r ${HOME}/.proxmox -a -r ${HOME}/.proxmox-url 
   export PROXMOX_PASSWD=`cat ${HOME}/.proxmox`
   export PROXMOX_URL=`cat ${HOME}/.proxmox-url`
 fi
+
+# quay.io
+if [ -r ${HOME}/.quay-user ]; then
+  export Q_USER=`cat ${HOME}/.quay-user`
+fi
+if [ -r ${HOME}/.quay-token ]; then
+  export Q_USER=`cat ${HOME}/.quay-token`
+fi
