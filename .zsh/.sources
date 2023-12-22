@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+if [ -x "$(which docker)" ]; then
+  source <(docker completion zsh);
+fi
+
+if [ -x "$(which helm)" ]; then
+  source <(helm completion zsh);
+fi
+
+if [ -x "$(which jj)" ]; then
+  source <(jj util completion zsh);
+fi
+
+if [ -x "$(which kubectl)" ]; then
+  source <(kubectl completion zsh);
+fi

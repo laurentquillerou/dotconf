@@ -1,0 +1,25 @@
+---
+- name: System
+  hosts: lab
+  become: yes
+  roles:
+    - role: system
+
+- name: Docker-machine
+  hosts: docker
+  become: yes
+  roles:
+    - role: docker
+
+- name: Kubernetes
+  hosts: kube
+  become: yes
+  roles:
+    - role: kube
+
+- name: Streaming
+  hosts: infotainment
+  become: yes
+  roles:
+    - role: jellyfin
+    - role: plex
