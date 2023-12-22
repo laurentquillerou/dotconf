@@ -1,0 +1,10 @@
+*.[ao]
+*.so
+*.pyc
+.DS_Store
+\#*
+.*.sw?
+*~
+*.tfvars
+.terraform/
+terraform.tfstate*

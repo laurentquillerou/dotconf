@@ -1,0 +1,44 @@
+#!/usr/bin/env zsh
+# Term
+setopt extended_glob
+setopt glob_dots
+setopt no_beep
+setopt multi_os
+setopt print_exit_value
+
+# History
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt inc_append_history
+setopt share_history
+
+# Jobs
+setopt long_list_jobs
+setopt no_hup
+
+# Directory
+setopt auto_cd
+setopt auto_name_dirs
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_minus
+setopt pushd_silent
+setopt pushd_to_home
+setopt cdable_vars
+setopt chase_links
+
+# Completion
+setopt auto_menu
+setopt always_to_end
+setopt complete_in_word
+setopt completealiases
+setopt list_ambiguous
+setopt menu_complete
+setopt flowcontrol
+
+# Correction
+setopt correct_all
