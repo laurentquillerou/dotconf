@@ -1,0 +1,55 @@
+---
+registries:
+  dockerhub:
+    password: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+    type: docker-registry
+    url: registry.hub.docker.com
+    username: ${{ secrets.CONTAINER_REGISTRY_USER }}
+updates:
+  - cooldown:
+      default-days: 1
+    directories:
+      - /tools/ansible/
+      - /tools/mkdocs/
+      - /tools/tailspin/
+      - /tools/tokei/
+      - /tools/toolbox/
+    groups:
+      docker:
+        patterns:
+          - '*'
+    package-ecosystem: docker
+    schedule:
+      interval: daily
+  - cooldown:
+      default-days: 1
+    directory:
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
+  - cooldown:
+      default-days: 1
+    directory: /tools/toolbox/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
+  - cooldown:
+      default-days: 1
+    directory: /
+    groups:
+      github-actions-major:
+        patterns:
+          - '*'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+          - version-update:semver-minor
+    package-ecosystem: github-actions
+    schedule:
+      interval: daily
+version: 2
