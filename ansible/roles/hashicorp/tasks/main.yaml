@@ -1,0 +1,21 @@
+---
+- name: Debian - Add hashicorp repository
+  ansible.builtin.deb822_repository:
+    name: hashicorp
+    types: deb
+    uris: "https://apt.releases.hashicorp.com/{{ ansible_facts['distribution'] | lower }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: main
+    architectures: amd64
+    signed_by: https://apt.releases.hashicorp.com/gpg
+  when: ansible_facts["os_family"] == 'Debian'
+
+- name: Debian - Install hashicorp packages
+  ansible.builtin.apt:
+    name:
+      - boundary
+      - terraform
+      - vault
+    state: present
+    update_cache: yes
+  when: ansible_facts["os_family"] == 'Debian'
