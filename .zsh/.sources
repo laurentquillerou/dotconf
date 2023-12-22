@@ -1,0 +1,9 @@
+KUBECTL=$(which kubectl)
+if [ -x ${KUBECTL} ]; then
+  source <(kubectl completion zsh);
+fi
+
+HELM=$(which helm)
+if [ -x ${HELM} ]; then
+  source <(helm completion zsh);
+fi
