@@ -1,0 +1,38 @@
+concurrency: ci-${{ github.workflow }}-${{ github.ref }}
+jobs:
+  build-toolbox-container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - id: short-sha
+        name: Get short SHA
+        run: echo "tag=$(git rev-parse --short HEAD)" >> "${GITHUB_OUTPUT}"
+      - uses: docker/login-action@v3
+        with:
+          password: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+          username: ${{ secrets.CONTAINER_REGISTRY_USER }}
+      - if: ${{ github.ref != 'refs/heads/main' }}
+        name: Build branch
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: tools/toolbox/Dockerfile
+          push: true
+          tags: matamun/toolbox:${{ steps.short-sha.outputs.tag }}
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        name: Build main
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: tools/toolbox/Dockerfile
+          push: true
+          tags: matamun/toolbox:${{ steps.short-sha.outputs.tag }},matamun/toolbox:latest
+name: Container - toolbox
+on:
+  push:
+    paths:
+      - .github/workflows/container-toolbox.yaml
+      - tools/toolbox/Dockerfile
+  workflow_dispatch: # Allow to manually trigger the pipeline
+permissions: {}
