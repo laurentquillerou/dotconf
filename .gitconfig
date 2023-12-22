@@ -1,0 +1,64 @@
+[user]
+  name = Laurent Quillerou
+  email = laurent.quillerou@gmail.com
+
+[includeIf "gitdir:~/work/"]
+  path = ~/work/.gitconfig
+
+[core]
+  editor = vim
+  excludesfile = ${HOME}/.gitignore
+  autocrlf = input
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = true
+
+[alias]
+  a = add
+  aa = add --all
+  b = branch
+  ba = branch -a
+  c = clone
+  ci = commit -a
+  cim = commit -a -m
+  co = checkout
+  com = checkout main
+  d = diff
+  f = fetch -p
+  fix = rbi HEAD~2
+  l = log
+  lg = log --graph --pretty=oneline
+  lga = log --graph --decorate --all
+  lgb = log --graph --pretty=oneline origin^..HEAD
+  ls = log --stat
+  m = merge
+  p = pull
+  ph = push
+  r = remote
+  rb = rebase
+  rbi = rebase -i
+  rpsh = rev-parse --short HEAD
+  st = status
+  sta = stash
+  t = tag
+  unstage = reset HEAD
+  wup = log -p
+
+[inspector]
+  file-types = java,c,cpp,h,hpp,py,glsl,rb,js,sql,xml,md,txt,csv,lock,example,json,scss,php,yml,css
+  list-file-types = true
+  metrics = true
+  responsibilities = true
+  timeline = true
+
+[pull]
+  rebase = true
+[rebase]
+  autoStash = true
+[diff]
+	color-moved-ws = ignore-all-space
+	colorMoved = zebra
