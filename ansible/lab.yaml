@@ -1,0 +1,19 @@
+---
+- name: system
+  hosts: lab
+  become: yes
+  roles:
+    - role: system
+
+- name: docker-machine
+  hosts: docker
+  become: yes
+  roles:
+    - role: docker
+
+- name: streaming
+  hosts: infotainment
+  become: yes
+  roles:
+    - role: jellyfin
+    - role: plex
