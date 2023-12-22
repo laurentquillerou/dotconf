@@ -1,0 +1,138 @@
+#!/usr/bin/env zsh
+# exports
+#export EDITOR="vim"
+export GREP_COLOR='1;33'
+
+# ssh agent
+export HOSTNAME=$(hostname -s)
+export SSH_AUTH_SOCK=${HOME}/.ssh/ssh-agent.${HOSTNAME}.sock
+ssh-add -l > /dev/null
+if [ $? -gt 0 ] ; then
+  ssh-agent -a "${SSH_AUTH_SOCK}" > ${HOME}/.ssh/ssh-agent.${HOSTNAME}.info
+  source ${HOME}/.ssh/ssh-agent.${HOSTNAME}.info
+  ssh-add
+fi
+
+# pager
+MOST=$(which most);
+if [ -x ${MOST} ]; then
+  export PAGER='most';
+fi
+
+# prompt
+if [ ${UID} = 0 ]; then
+  LOGIN_COLOR=red
+else
+  LOGIN_COLOR=green
+fi
+export PS1="%F{white}%T%f %F{${LOGIN_COLOR}}%n%f@%F{yellow}%M%f:%F{cyan}%~%f %# "
+
+# socks
+if [ -f ${HOME}/.socks ]; then
+  export TSOCKS_USER=${USER}
+  export TSOCKS_PASSWORD=$(cat ~/.socks)
+  export TSOCKS_DEBUG=1
+  alias runsocks="tsocks"
+fi
+
+# mbin PATH
+if [ -d ${HOME}/mbin/ ]; then
+  export PATH="${HOME}/mbin:${PATH}"
+fi
+
+# OpenBSD
+if [ $(uname -s) = "OpenBSD" ]; then
+  export CC="ch"
+  export PKG_PATH="http://ftp.${CC}.openbsd.org/pub/OpenBSD/$(uname -r)/packages/$(uname -m)/"
+  export CVSROOT="anoncvs@anoncvs.${CC}.openbsd.org:/cvs"
+fi
+
+# macOS
+if [ $(uname -s) = "Darwin" ]; then
+  # arcanist
+  if [ -d "${HOME}/Library/php/arcanist/bin" ]; then
+    export PATH="${HOME}/Library/php/arcanist/bin:${PATH}"
+  fi
+  # docker
+  if [ -S /var/run/docker.sock ]; then
+    export DOCKER_HOST=unix:///var/run/docker.sock
+  fi
+  # gcloud
+  if [ -f "${HOME}/work/google-cloud-sdk/path.zsh.inc" -a -f "${HOME}/work/google-cloud-sdk/completion.zsh.inc" ]; then
+    source "${HOME}/work/google-cloud-sdk/path.zsh.inc";
+    source "${HOME}/work/google-cloud-sdk/completion.zsh.inc";
+  fi
+  # keka
+  if [ -d "/Applications/Keka.app/Contents/MacOS/" ]; then
+    export PATH="/Applications/Keka.app/Contents/MacOS/:${PATH}"
+    alias keka="Keka --cli"
+  fi
+  # ovftool
+  if [ -d "/Applications/VMware Fusion.app/Contents/Library/VMware OVF Tool" ]; then
+     export PATH="/Applications/VMware Fusion.app/Contents/Library/VMware OVF Tool:${PATH}"
+  fi
+  if [ -d "/Applications/VMware OVF Tool" ]; then
+    export PATH="/Applications/VMware OVF Tool:${PATH}"
+  fi
+  # python3
+  PY_VERSION="3.12"
+  if [ -d "${HOME}/Library/Python/${PY_VERSION}/bin" ]; then
+     export PATH="${HOME}/Library/Python/${PY_VERSION}/bin:${PATH}"
+  fi
+  # tart
+  if [ -d "/Applications/tart.app/Contents/MacOS/" ]; then
+     export PATH="/Applications/tart.app/Contents/MacOS/:${PATH}"
+  fi
+  # rust
+  if [ -d "${HOME}/.cargo/bin" ]; then
+     export PATH="${HOME}/.cargo/bin:${PATH}"
+  fi
+  # vscode
+  if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
+     export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
+  fi
+fi
+
+# jenkins
+if [ -r ${HOME}/.jenkins -a -r ${HOME}/.jenkins-url ]; then
+  export JENKINS_TOKEN=$(cat ${HOME}/.jenkins)
+  export JENKINS_URL=$(cat ${HOME}/.jenkins-url)
+  alias lint-pipe="curl --user ${JENKINS_TOKEN} -X POST -F 'jenkinsfile=<Jenkinsfile' https://${JENKINS_URL}/pipeline-model-converter/validate"
+fi
+
+# Artifactory
+if [ -r ${HOME}/.artifacory-url ]; then
+  export ART_URL=$(cat ${HOME}/.artifacory-url)
+fi
+
+# Xray
+if [ -r ${HOME}/.xray-url ]; then
+  export XRAY_URL=$(cat ${HOME}/.xray-url)
+fi
+
+# Terraform
+#export TF_LOG=TRACE
+
+# Prometheus
+if [ -r ${HOME}/.prom-url ]; then
+  export PROM_URL=$(cat ${HOME}/.prom-url)
+  alias rprom="curl -ILX POST http://${PROM_URL}/-/reload"
+fi
+
+# Proxmox
+if [ -r ${HOME}/.proxmox-user -a -r ${HOME}/.proxmox -a -r ${HOME}/.proxmox-url ]; then
+  export PROXMOX_USER=$(cat ${HOME}/.proxmox-user)
+  export PROXMOX_PASSWD=$(cat ${HOME}/.proxmox)
+  export PROXMOX_URL=$(cat ${HOME}/.proxmox-url)
+fi
+
+# quay.io
+if [ -r ${HOME}/.quay-user ]; then
+  export Q_USER=$(cat ${HOME}/.quay-user)
+fi
+if [ -r ${HOME}/.quay-token ]; then
+  export Q_TOKEN=$(cat ${HOME}/.quay-token)
+fi
+
+# AWS
+#export AWS_SDK_LOAD_CONFIG=1

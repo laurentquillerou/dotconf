@@ -1,0 +1,117 @@
+#!/usr/bin/env zsh
+alias a=alias
+
+# Detect which 'ls' flavor is in use
+case $(uname -s) in
+  Linux)
+    LSFLAGS='--color=auto --group-directories-first'
+    if [ -x $(which apt) ]; then
+      a up='apt update && apt -y upgrade && apt -y dist-upgrade && apt autoremove --purge'
+    elif [ -x $(which apk) ]; then
+      a up='apk upgrade --purge && sync'
+    elif [ -x $(which yum) ]; then
+      a up='yum update'
+    fi
+    ;;
+  Darwin)
+    LSFLAGS='-G'
+    a mnfs='mount -t nfs -o resvport -o vers=4.0'
+    a sha256sum='shasum -a 256'
+    a sha512sum='shasum -a 512'
+    ;;
+  OpenBSD)
+    a maj='cd /usr; cvs -d${CVSROOT} up -rOPENBSD_$(uname -r | tr '.' '_') -P src ports'
+    a up='pkg_add -ui -F update -F updatedepends'
+    ;;
+  FreeBSD)
+    a maj='portsnap fetch update'
+    a up='pkg update && pkg upgrade'
+    ;;
+esac
+
+# Aliases
+
+## container-ized tools
+a da='dr -v $(pwd):/workdir matamun/ansible'
+a ddc='docker run --rm -e user=${USER} -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/src:z -v "${HOME}/OWASP-DC/data":/usr/share/dependency-check/data:z -v $(pwd)/odc-reports:/report:z owasp/dependency-check:latest --scan /src --format "ALL" --project "dependency-check scan: $(pwd)" --out /report'
+a djq='dr -v $(pwd):/workspace -w /workspace ghcr.io/jqlang/jq'
+a djqs='dr -v $(pwd):/workspace -w /workspace ghcr.io/jqlang/jq -S .'
+a dpacker='dr -v $(pwd):/workspace -w /workspace -e PACKER_PLUGIN_PATH=/workspace/.packer.d/plugins hashicorp/packer'
+a dr='docker run --rm -it --security-opt=no-new-privileges'
+a druff='dr $(pwd):/io ghcr.io/astral-sh/ruff'
+a dsl='dr -v $(pwd):/tmp/lint -e RUN_LOCAL=true ghcr.io/super-linter/super-linter:slim-latest'
+a dtb='dr -v $(pwd):/workdir matamun/toolbox'
+a dtf='dr -v $(pwd):/workspace -v ${HOME}/.terraformrc:/workspace/.terraformrc -w /workspace -e TF_CLI_CONFIG_FILE=/workspace/.terraformrc hashicorp/terraform'
+a dtfrdsql='dr -v $(pwd):/tmp noborus/trdsql'
+a dtrdsql='dr -v $(pwd):/tmp trdsql'
+a dtrivy='dr -v /var/run/docker.sock:/var/run/docker.sock -v "${TRIVY_CACHE:-${HOME}/Library/Caches}:/root/.cache/" aquasec/trivy image'
+a dts='dr -v $(pwd):/workdir matamun/tailspin'
+a dyq='dr -v $(pwd):/workdir mikefarah/yq'
+a dyqs='dr -v $(pwd):/workdir mikefarah/yq -i -P "sort_keys(..)"'
+
+## regular
+a .....='cd ../../../..'
+a ....='cd ../../..'
+a ...='cd ../..'
+a ..='cd ..'
+a al='ansible-lint'
+a ap='ansible-playbook'
+a c='clear'
+a cd..='cd ..'
+a cp='cp -Ri'
+a curlnp="curl --noproxy '*'"
+a d='dirs -v'
+a dc='docker compose'
+a df='df -h'
+a dk='docker'
+a du='du -h'
+a e='emacs'
+a f='finger'
+a g='git'
+a gen-pass='openssl rand -base64 16'
+a gl='g log --graph --decorate --all'
+a grep='egrep --color=auto'
+a grepr='egrep --color=auto -R --exclude-dir={.git,.terraform,.tox}'
+a grepri='egrep --color=auto  -Ri --exclude-dir={.git,.terraform,.tox}'
+a greprin='egrep --color=auto -Rin --exclude-dir={.git,.terraform,.tox}'
+a greprn='egrep --color=auto -Rn --exclude-dir={.git,.terraform,.tox}'
+a h='history'
+a j='jobs'
+a k='kubectl'
+a ka='kubectl apply'
+a kd='kubectl describe'
+a ke='kubectl edit'
+a kg='kubectl get'
+a kl='kubectl logs'
+a kpf='kubectl port-forward'
+a l='ls -l'
+a la='ls -lA'
+a ls="ls -h ${LSFLAGS}"
+a m='make'
+a mv='mv -i'
+a myip='dig +short myip.opendns.com @resolver1.opendns.com'
+a pip3up="pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user"
+a pipup="pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U --user"
+a rm='rm -Ri'
+a rot13='tr a-zA-Z n-za-mN-ZA-M'
+a rsync="rsync -a --progress --exclude '.DS_Store'"
+a sc='screen'
+a scp='scp -r'
+a t='tmux'
+a tf='terraform'
+a tfa='tf apply -auto-approve'
+a tfc='tf console'
+a tfd='tf destroy'
+a tfda='tfd -auto-approve'
+a tfe='tf env'
+a tff='tf fmt'
+a tfg='tf get -update=true'
+a tfi='tf init'
+a tfiu='tfi -upgrade'
+a tfp='tf plan'
+a tfv='tf validate'
+a tfw='tf workspace'
+a tl='t list-sessions'
+a v='vault'
+a vi='vim'
+a whoise='whois -h whois-servers.net'
