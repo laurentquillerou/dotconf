@@ -1,0 +1,10 @@
+{
+  "theme": "Cobalt",
+  "buffer_font_size": 16,
+  "hour_format": "hour24",
+  "preferred_line_length": 120,
+  "show_whitespaces": "all",
+  "tab_size": 2,
+  "ui_font_size": 16,
+  "vim_mode": false
+}

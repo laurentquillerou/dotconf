@@ -1,0 +1,22 @@
+{
+  "bip": "{{ docker_bip }}",
+  "default-address-pools": [
+    {
+      "base": "{{ docker_default_address_pools_base }}",
+      "size": {{ docker_default_address_pools_size }}
+    }
+  ],
+  "experimental": true,
+  "features" :
+  {
+    "buildkit" : true
+  },
+  "icc": false,
+  "live-restore": true,
+  "metrics-addr": "0.0.0.0:9323",
+  "no-new-privileges": true,
+{% if docker_registry_mirrors %}
+  "registry-mirrors": ["{{ docker_registry_mirrors }}"],
+{% endif %}
+  "userland-proxy": false
+}
