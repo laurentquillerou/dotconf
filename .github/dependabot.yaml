@@ -1,0 +1,37 @@
+---
+registries:
+  dockerhub:
+    password: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+    type: docker-registry
+    url: registry.hub.docker.com
+    username: ${{ secrets.CONTAINER_REGISTRY_USER }}
+updates:
+  - directory: /tools/ansible/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
+  - directory: /tools/mkdocs/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
+  - directory: /tools/tailspin/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
+  - directory: /tools/toolbox/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
+  - directory: /
+    package-ecosystem: github-actions
+    schedule:
+      interval: daily
+version: 2
