@@ -1,0 +1,81 @@
+---
+- name: "Set {{ binary.name }} url with version resolved"
+  ansible.builtin.set_fact:
+    binary_url: "{{ binary.url | replace('@VERSION@', binary.version) }}"
+    binary_members: "{{ (binary.members | default(binary.name)) | replace('@VERSION@', binary.version) }}"
+
+- name: "Check whether {{ binary.name }} is already installed"
+  ansible.builtin.stat:
+    path: "{{ binaries_dest }}/{{ binary.name }}"
+  register: binary_stat
+
+- name: "Install {{ binary.name }} {{ binary.version }}"
+  when: not binary_stat.stat.exists
+  block:
+    - name: "Create temp dir for {{ binary.name }}"
+      ansible.builtin.tempfile:
+        state: directory
+        prefix: "binary-{{ binary.name }}-"
+      register: binary_tmp_dir
+
+    - name: "Download {{ binary.name }} binary"
+      ansible.builtin.get_url:
+        url: "{{ binary_url }}"
+        dest: "{{ binaries_dest }}/{{ binary.name }}"
+        mode: "0755"
+      when: binary.kind == 'raw'
+
+    - name: "Download {{ binary.name }} archive"
+      ansible.builtin.get_url:
+        url: "{{ binary_url }}"
+        dest: "{{ binary_tmp_dir.path }}/archive"
+        mode: "0644"
+      when: binary.kind in ['tar', 'zip']
+
+    - name: "Create extract dir for {{ binary.name }}"
+      ansible.builtin.file:
+        path: "{{ binary_tmp_dir.path }}/extract"
+        state: directory
+        mode: "0755"
+      when: binary.kind in ['tar', 'zip']
+
+    - name: "Extract {{ binary.name }} tar archive"
+      ansible.builtin.command:
+        cmd: >-
+          tar -xf {{ binary_tmp_dir.path }}/archive
+          -C {{ binary_tmp_dir.path }}/extract
+          {% if binary.strip_components is defined %}--strip-components={{ binary.strip_components }}{% endif %}
+          {{ binary_members }}
+      when: binary.kind == 'tar'
+
+    - name: "Extract {{ binary.name }} zip archive"
+      ansible.builtin.command:
+        cmd: "unzip -oq {{ binary_tmp_dir.path }}/archive {{ binary_members }} -d {{ binary_tmp_dir.path }}/extract"
+      when: binary.kind == 'zip'
+
+    - name: "Copy extracted files for {{ binary.name }} into place"
+      ansible.builtin.copy:
+        src: "{{ binary_tmp_dir.path }}/extract/"
+        dest: "{{ binaries_dest }}/"
+        remote_src: yes
+        mode: preserve
+      when: binary.kind in ['tar', 'zip']
+
+    - name: "Make {{ binary.name }} executable"
+      ansible.builtin.file:
+        path: "{{ binaries_dest }}/{{ item.split('/')[-1] }}"
+        mode: "0755"
+      loop: "{{ binary_members.split(' ') }}"
+      when: binary.kind in ['tar', 'zip']
+
+    - name: "Remove quarantine attribute from {{ binary.name }}"
+      ansible.builtin.command:
+        cmd: "xattr -c {{ binaries_dest }}/{{ binary.name }}"
+      when: binary.xattr | default(false) | bool
+
+  always:
+    - name: "Clean up temp dir for {{ binary.name }}"
+      ansible.builtin.file:
+        path: "{{ binary_tmp_dir.path }}"
+        state: absent
+      when: binary_tmp_dir is defined and binary_tmp_dir.path is defined
