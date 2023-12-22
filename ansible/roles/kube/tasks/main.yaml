@@ -1,0 +1,47 @@
+---
+- name: Debian - Add k8s repositories
+  ansible.builtin.deb822_repository:
+    name: kube
+    types: deb
+    uris: "https://pkgs.k8s.io/core:/stable:/{{ kube_version }}/deb"
+    suites: /
+    components:
+    architectures: amd64
+    signed_by: https://pkgs.k8s.io/core:/stable:/{{ kube_version }}/deb/Release.key
+  when: ansible_facts["os_family"] == 'Debian'
+
+- name: Debian - Install kube packages
+  ansible.builtin.apt:
+    name:
+      - containerd
+      - kubeadm
+      - kubectl
+      - kubelet
+    state: present
+    update_cache: yes
+  when: ansible_facts["os_family"] == 'Debian'
+
+- name: Debian - hold kube packages
+  ansible.builtin.dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - kubelet
+    - kubeadm
+
+- name: K8s - Enable and start kubelet service
+  ansible.builtin.systemd:
+    name: kubelet
+    enabled: yes
+    state: started
+
+- name: K8s - Create containerd directory
+  ansible.builtin.file:
+    path: /etc/containerd
+    state: directory
+    mode: "0755"
+
+- name: K8s - Restart containerd service
+  ansible.builtin.systemd:
+    name: containerd
+    state: started

@@ -1,0 +1,28 @@
+---
+- name: Ensure binaries destination directory exists
+  ansible.builtin.file:
+    path: "{{ binaries_dest }}"
+    state: directory
+    mode: "0755"
+
+- name: Install pinned GitHub release binaries
+  ansible.builtin.include_tasks: install-binary.yaml
+  loop: "{{ binaries }}"
+  loop_control:
+    loop_var: binary
+    label: "{{ binary.name }} {{ binary.version }}"
+
+- name: Ensure apps download directory exists
+  ansible.builtin.file:
+    path: "{{ apps_dest }}"
+    state: directory
+    mode: "0755"
+  when: ansible_facts["os_family"] == 'Darwin'
+
+- name: Download and mount macOS apps
+  ansible.builtin.include_tasks: install-app.yaml
+  loop: "{{ apps }}"
+  loop_control:
+    loop_var: app
+    label: "{{ app.name }}"
+  when: ansible_facts["os_family"] == 'Darwin'
