@@ -1,0 +1,47 @@
+---
+- name: Debian - Install zsh
+  ansible.builtin.apt:
+    name: zsh
+    state: present
+    update_cache: yes
+  become: yes
+  when: ansible_facts["os_family"] == 'Debian'
+
+- name: Alpine - Install zsh
+  community.general.apk:
+    name: zsh
+    state: present
+    update_cache: true
+  become: yes
+  when: ansible_facts["os_family"] == 'Alpine'
+
+- name: Create ~/.zsh directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.zsh"
+    state: directory
+    mode: "0755"
+
+- name: Deploy .zshrc
+  ansible.builtin.copy:
+    src: zshrc
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    mode: "0644"
+
+- name: Deploy zsh config files
+  ansible.builtin.copy:
+    src: ".zsh/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.zsh/{{ item }}"
+    mode: "0644"
+  loop:
+    - .exports
+    - .aliases
+    - .options
+    - .functions
+    - .sources
+
+- name: Set zsh as default shell
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    shell: "{{ zsh_default_shell_path }}"
+  become: yes
+  when: zsh_set_default_shell | bool
