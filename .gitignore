@@ -1,0 +1,12 @@
+.*.sw?
+.DS_Store
+.terraform/
+.vim/bundle/
+*.[ao]
+*.pyc
+*.so
+*.tfvars
+*~
+\#*
+ansible/hosts
+terraform.tfstate*
