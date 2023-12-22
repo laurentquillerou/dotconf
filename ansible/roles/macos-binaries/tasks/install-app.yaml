@@ -1,0 +1,39 @@
+---
+- name: "Resolve {{ app.name }} download url"
+  ansible.builtin.set_fact:
+    app_url: "{{ app.url | replace('@VERSION@', app.version | default('')) }}"
+    app_file: "{{ apps_dest }}/{{ app.name }}.{{ 'dmg' if app.kind == 'dmg' else ('zip' if app.kind == 'zip' else 'tar.gz') }}"
+
+- name: "Download {{ app.name }}"
+  ansible.builtin.get_url:
+    url: "{{ app_url }}"
+    dest: "{{ app_file }}"
+    mode: "0644"
+
+- name: "Mount {{ app.name }} disk image"
+  ansible.builtin.command:
+    cmd: "hdiutil attach {{ app_file }} -mountpoint {{ app.mount_point }} -nobrowse -quiet"
+  register: app_mount_result
+  failed_when: false
+  changed_when: app_mount_result.rc == 0
+  when: app.kind == 'dmg'
+
+- name: "Report {{ app.name }} mount failure"
+  ansible.builtin.debug:
+    msg: "Could not mount {{ app_file }}: {{ app_mount_result.stderr }}"
+  when: app.kind == 'dmg' and app_mount_result.rc != 0
+
+- name: "Extract {{ app.name }} tar archive"
+  ansible.builtin.command:
+    cmd: "tar -xf {{ app_file }} -C {{ apps_dest }} '{{ app.members | default(app.name) }}'"
+  when: app.kind == 'tar'
+
+- name: "Extract {{ app.name }} zip archive"
+  ansible.builtin.command:
+    cmd: "unzip -oq {{ app_file }} '{{ app.members | default(app.name) }}' -d {{ apps_dest }}"
+  when: app.kind == 'zip'
+
+- name: "Remove quarantine attribute from {{ app.name }}"
+  ansible.builtin.command:
+    cmd: "xattr -c '{{ apps_dest }}/{{ app.members | default(app.name) }}'"
+  when: app.kind in ['tar', 'zip'] and (app.xattr | default(false) | bool)
