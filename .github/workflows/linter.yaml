@@ -1,0 +1,28 @@
+---
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+      - name: Create reporting dir
+        run: mkdir -p super-linter.report
+      - env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LINTER_RULES_PATH: .
+          # limit to new and updated files
+          VALIDATE_ALL_CODEBASE: false
+        name: Run super-linter
+        uses: github/super-linter/slim@v5
+name: Lint Code Base
+on:
+  push:
+    # do not run for main
+    branches-ignore:
+      - main
+  workflow_dispatch: # Allow to manually trigger the pipeline
