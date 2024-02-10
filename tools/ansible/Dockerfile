@@ -1,13 +1,13 @@
-ARG DOCKER_IMG_TAG="3.19.1"
-FROM alpine:${DOCKER_IMG_TAG} AS build
+FROM alpine:3.20.2 AS build
 
 RUN apk --no-cache add curl
 
-ARG SOPS_VERSION=3.8.1
+ARG SOPS_VERSION=3.9.0
 RUN curl -sL "https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux" -o /usr/local/bin/sops \
     && chmod +x /usr/local/bin/sops
 
-FROM alpine:${DOCKER_IMG_TAG}
+
+FROM alpine:3.20.2
 
 WORKDIR /workdir/
 
