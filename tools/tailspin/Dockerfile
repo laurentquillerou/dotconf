@@ -1,11 +1,12 @@
-ARG DOCKER_IMG_TAG="3.19.1"
-
 FROM rust:alpine AS build
 
-RUN apk add musl-dev \
-    && cargo install tailspin
+ARG TSPIN_VERSION=3.0.2
 
-FROM alpine:${DOCKER_IMG_TAG}
+RUN apk add musl-dev
+RUN cargo install --version ${TSPIN_VERSION} tailspin
+
+
+FROM alpine:3.20.2
 
 WORKDIR /workdir
 

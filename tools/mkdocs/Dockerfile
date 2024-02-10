@@ -1,5 +1,4 @@
-ARG DOCKER_IMG_TAG="3.19.1"
-FROM alpine:${DOCKER_IMG_TAG}
+FROM alpine:3.20.2
 
 WORKDIR /project/
 

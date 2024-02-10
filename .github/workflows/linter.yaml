@@ -1,0 +1,29 @@
+---
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # need full git history
+          fetch-depth: 0
+      - name: Create reporting dir
+        run: mkdir -p super-linter.report
+      - env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LINTER_RULES_PATH: .
+          # limit to new and updated files
+          VALIDATE_ALL_CODEBASE: false
+        name: Run super-linter
+        uses: super-linter/super-linter@v7.0.0
+name: Lint Code Base
+on:
+  push:
+    # do not run for main
+    branches-ignore:
+      - main
+  workflow_dispatch: # Allow to manually trigger the pipeline
+permissions: {}
