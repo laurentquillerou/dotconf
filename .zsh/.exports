@@ -35,6 +35,11 @@ if [ -f ${HOME}/.socks ]; then
   alias runsocks="tsocks"
 fi
 
+# mbin PATH
+if [ -d ${HOME}/mbin/ ]; then
+  export PATH="${HOME}/mbin:${PATH}"
+fi
+
 # OpenBSD
 if [ $(uname -s) = "OpenBSD" ]; then
   export CC="ch"
