@@ -82,7 +82,11 @@ au BufNewFile,BufRead Jenkinsfile setf groovy
 set title
 
 " color theme
+""colorscheme cobalt2
 colorscheme industry
+
+" enable 24bit true color
+set termguicolors
 
 " Showmatcah
 set showmatch
