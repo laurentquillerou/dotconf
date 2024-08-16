@@ -14,7 +14,7 @@ jobs:
           username: ${{ secrets.CONTAINER_REGISTRY_USER_RW }}
       - if: ${{ github.ref != 'refs/heads/main' }}
         name: Build branch
-        uses: docker/build-push-action@v5
+        uses: github/super-linter/slim@v6
         with:
           context: .
           file: tools/tailspin/Dockerfile
@@ -22,7 +22,7 @@ jobs:
           tags: matamun/tailspin:${{ steps.short-sha.outputs.tag }}
       - if: ${{ github.ref == 'refs/heads/main' }}
         name: Build main
-        uses: docker/build-push-action@v5
+        uses: github/super-linter/slim@v6
         with:
           context: .
           file: tools/tailspin/Dockerfile
