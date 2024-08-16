@@ -1,0 +1,44 @@
+---
+jobs:
+  build-tmux:
+    runs-on: macos-latest
+    steps:
+      - id: libevent-ver
+        name: Set libevent-ver
+        run: echo "version=2.1.12" >> "${GITHUB_OUTPUT}"
+      - id: tmux-ver
+        name: Set tmux-ver
+        run: echo "version=3.5a" >> "${GITHUB_OUTPUT}"
+      - env:
+          CPPFLAGS: -I/opt/homebrew/openssl@3.3/include
+          LDFLAGS: -L/opt/homebrew/openssl@3.3/lib
+        name: Build libevent
+        run: |
+          curl -L https://github.com/libevent/libevent/releases/download/release-${{ steps.libevent-ver.outputs.version }}-stable/libevent-${{ steps.libevent-ver.outputs.version }}-stable.tar.gz | tar zxf -
+          cd libevent-*
+          ./configure --enable-static --disable-shared --prefix=/tmp/libevent
+          make install
+      - env:
+          CPPFLAGS: -I/opt/homebrew/opt/openssl@3.3/include -I/tmp/libevent/include
+          LDFLAGS: -L/opt/homebrew/opt/openssl@3.3/lib -L/tmp/libevent/lib
+        name: Build tmux
+        run: |
+          curl -L https://github.com/tmux/tmux/releases/download/${{ steps.tmux-ver.outputs.version }}/tmux-${{ steps.tmux-ver.outputs.version }}.tar.gz | tar zxf -
+          cd tmux-*
+          ./configure --disable-utf8proc --prefix=/usr/local
+          make
+      - id: artifact
+        name: Get artifact path
+        run: echo "path=$(find "${GITHUB_WORKSPACE}" -name 'tmux')" >> "${GITHUB_OUTPUT}"
+      - name: Publish
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmux-darwin-arm64
+          path: ${{ steps.artifact.outputs.path }}
+name: Build - tmux for macOS
+on:
+  push:
+    paths:
+      - .github/workflows/build-tmux-macos.yaml
+  workflow_dispatch: # Allow to manually trigger the pipeline
+permissions: {}
