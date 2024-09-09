@@ -6,7 +6,7 @@ RUN apk add musl-dev
 RUN cargo install --version ${TSPIN_VERSION} tailspin
 
 
-FROM alpine:3.20.2 AS bootstrap
+FROM alpine:3.20.3 AS bootstrap
 
 ARG ARCH="amd64"
 ARG DUCKDB_VERSION="v1.1.0"
@@ -37,7 +37,7 @@ COPY --from=rust-build /usr/local/cargo/bin/tspin /usr/local/bin/tspin
 RUN chmod +x /usr/local/bin/*
 
 
-FROM alpine:3.20.2
+FROM alpine:3.20.3
 
 WORKDIR /workdir/
 
