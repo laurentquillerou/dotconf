@@ -9,7 +9,7 @@ jobs:
         run: echo "version=2.1.12" >> "${GITHUB_OUTPUT}"
       - id: tmux-ver
         name: Set tmux-ver
-        run: echo "version=3.4" >> "${GITHUB_OUTPUT}"
+        run: echo "version=3.5" >> "${GITHUB_OUTPUT}"
       - env:
           CPPFLAGS: -I/opt/homebrew/openssl@3.3/include
           LDFLAGS: -L/opt/homebrew/openssl@3.3/lib
