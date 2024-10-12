@@ -15,6 +15,7 @@ case $(uname -s) in
     ;;
   Darwin)
     LSFLAGS='-G'
+    a mnfs='mount -t nfs -o resvport -o vers=4.0'
     a sha256sum='shasum -a 256'
     a sha512sum='shasum -a 512'
     ;;
