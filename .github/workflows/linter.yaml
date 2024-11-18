@@ -18,7 +18,7 @@ jobs:
           # limit to new and updated files
           VALIDATE_ALL_CODEBASE: false
         name: Run super-linter
-        uses: super-linter/super-linter@v7.1.0
+        uses: super-linter/super-linter@v7.2.0
 name: Lint Code Base
 on:
   push:
