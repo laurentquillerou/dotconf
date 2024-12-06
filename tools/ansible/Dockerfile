@@ -1,4 +1,4 @@
-FROM alpine:3.20.3 AS build
+FROM alpine:3.21.0 AS build
 
 RUN apk --no-cache add curl
 
@@ -7,7 +7,7 @@ RUN curl -sL "https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}
     && chmod +x /usr/local/bin/sops
 
 
-FROM alpine:3.20.3
+FROM alpine:3.21.0
 
 WORKDIR /workdir/
 
