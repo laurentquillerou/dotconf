@@ -6,7 +6,7 @@ RUN apk add musl-dev
 RUN cargo install --version ${TSPIN_VERSION} tailspin
 
 
-FROM alpine:3.20.3
+FROM alpine:3.21.0
 
 WORKDIR /workdir
 
