@@ -8,5 +8,6 @@ RUN apk add --no-cache \
     ansible \
     curl \
     gnupg \
-    openssh-client
+    openssh-client \
+    rage
 USER nobody
