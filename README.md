@@ -17,6 +17,8 @@ K9S_VER="v0.32.7"; curl -L https://github.com/derailed/k9s/releases/download/${K
 
 KCTL_VER="v1.31.0"; curl -LO "https://dl.k8s.io/release/${KCTL_VER}/bin/$(uname -s | tr '[:upper:]' '[:lower:]')/$(uname -m)/kubectl"
 
+RAGE_VER="v0.11.0"; curl -L "https://github.com/str4d/rage/releases/download/${RAGE_VER}/rage-${RAGE_VER}-$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz" | tar zxf - --strip-components 1
+
 SOPS_VER="v3.9.2"; curl -L "https://github.com/getsops/sops/releases/download/${SOPS_VER}/sops-${SOPS_VER}.$(uname -s | tr '[:upper:]' '[:lower:]').$(uname -m)" -o sops
 
 TART_VER="2.21.0"; curl -L "https://github.com/cirruslabs/tart/releases/download/${TART_VER}/tart-$(uname -m).tar.gz" | tar zxf - tart.app
