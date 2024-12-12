@@ -2,7 +2,7 @@ FROM aquasec/trivy:0.58.0 AS trivy
 
 FROM ghcr.io/getsops/sops:v3.9.2-alpine AS sops
 
-FROM hashicorp/terraform:1.10.1 AS terraform
+FROM hashicorp/terraform:1.10.2 AS terraform
 
 FROM hashicorp/vault:1.18.2 AS vault
 
