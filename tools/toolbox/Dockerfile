@@ -2,6 +2,8 @@ FROM aquasec/trivy:0.58.0 AS trivy
 
 FROM ghcr.io/getsops/sops:v3.9.2-alpine AS sops
 
+FROM hashicorp/boundary:0.18.2 AS boundary
+
 FROM hashicorp/terraform:1.10.2 AS terraform
 
 FROM hashicorp/vault:1.18.2 AS vault
@@ -20,6 +22,7 @@ ARG HELM_VERSION="v3.16.2"
 ARG KCTL_VERSION="v1.31.3"
 ARG TFORMER_VERSION="0.8.24"
 
+COPY --from=boundary /bin/boundary /usr/local/bin/
 COPY --from=sops /usr/local/bin/sops /usr/local/bin/
 COPY --from=tailspin /usr/local/cargo/bin/tspin /usr/local/bin/
 COPY --from=terraform /bin/terraform /usr/local/bin/
