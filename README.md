@@ -8,7 +8,7 @@ xattr -c aria2c
 
 DUCKDB_VERSION="v1.1.3"; curl -LO "https://github.com/duckdb/duckdb/releases/download/${DUCKDB_VERSION}/duckdb_cli-osx-universal.zip" | unzip -oqK - duckdb
 
-HELM_VER="3.16.2"; curl -L "https://get.helm.sh/helm-v${HELM_VER}-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz" | tar zxf - --strip-components 1 $(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)/helm
+HELM_VER="3.16.4"; curl -L "https://get.helm.sh/helm-v${HELM_VER}-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)/helm"
 
 JQ_VER="1.7.1"; curl -L "https://github.com/jqlang/jq/releases/download/jq-${JQ_VER}/jq-macos-$(uname -m)" -o jq
 xattr -c jq
