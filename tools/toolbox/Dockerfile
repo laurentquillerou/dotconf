@@ -1,4 +1,4 @@
-FROM aquasec/trivy:0.58.0 AS trivy
+FROM aquasec/trivy:0.62.1 AS trivy
 
 FROM ghcr.io/getsops/sops:v3.9.2-alpine AS sops
 
