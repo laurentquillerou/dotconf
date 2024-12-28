@@ -62,6 +62,13 @@ if [ $(uname -s) = "Darwin" ]; then
     source "${HOME}/work/google-cloud-sdk/path.zsh.inc";
     source "${HOME}/work/google-cloud-sdk/completion.zsh.inc";
   fi
+  # ghostty
+  if [ -d "/Applications/Ghostty.app/Contents/MacOS/" ]; then
+    export PATH="/Applications/Ghostty.app/Contents/MacOS/:${PATH}"
+  fi
+  if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+      builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+  fi
   # keka
   if [ -d "/Applications/Keka.app/Contents/MacOS/" ]; then
     export PATH="/Applications/Keka.app/Contents/MacOS/:${PATH}"
