@@ -2,6 +2,8 @@ FROM aquasec/trivy:0.58.1 AS trivy
 
 FROM ghcr.io/getsops/sops:v3.9.2-alpine AS sops
 
+FROM ghcr.io/astral-sh/uv:0.5.13 AS uv
+
 FROM hashicorp/boundary:0.18.2 AS boundary
 
 FROM hashicorp/terraform:1.10.3 AS terraform
@@ -27,6 +29,7 @@ COPY --from=sops /usr/local/bin/sops /usr/local/bin/
 COPY --from=tailspin /usr/local/cargo/bin/tspin /usr/local/bin/
 COPY --from=terraform /bin/terraform /usr/local/bin/
 COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/
+COPY --from=uv /uv /uvx /usr/local/bin/
 COPY --from=vault /bin/vault /usr/local/bin/
 COPY --from=yq /usr/bin/yq /usr/local/bin/
 
@@ -72,6 +75,7 @@ RUN apk add --no-cache \
     rsync-zsh-completion \
     tmux \
     tmux-zsh-completion \
+    uv-zsh-completion \
     vim \
     vimdiff \
     zsh \
