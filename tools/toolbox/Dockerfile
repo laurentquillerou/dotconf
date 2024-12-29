@@ -1,5 +1,7 @@
 FROM aquasec/trivy:0.58.1 AS trivy
 
+FROM ghcr.io/jqlang/jq:1.7.1 AS jq
+
 FROM ghcr.io/getsops/sops:v3.9.2-alpine AS sops
 
 FROM ghcr.io/astral-sh/uv:0.5.13 AS uv
@@ -25,6 +27,7 @@ ARG KCTL_VERSION="v1.31.3"
 ARG TFORMER_VERSION="0.8.24"
 
 COPY --from=boundary /bin/boundary /usr/local/bin/
+COPY --from=jq /jq /usr/local/bin/
 COPY --from=sops /usr/local/bin/sops /usr/local/bin/
 COPY --from=tailspin /usr/local/cargo/bin/tspin /usr/local/bin/
 COPY --from=terraform /bin/terraform /usr/local/bin/
