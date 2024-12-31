@@ -2,7 +2,7 @@ FROM aquasec/trivy:0.62.1 AS trivy
 
 FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
-FROM ghcr.io/getsops/sops:v3.9.2-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
 
 FROM ghcr.io/astral-sh/uv:0.5.13 AS uv
 
