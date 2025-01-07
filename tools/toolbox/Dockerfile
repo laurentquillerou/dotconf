@@ -19,7 +19,7 @@ ARG TSPIN_VERSION="4.0.0"
 RUN apk add --no-cache musl-dev \
     && cargo install --version ${TSPIN_VERSION} tailspin
 
-FROM alpine:3.21.0 AS bootstrap
+FROM alpine:3.21.3 AS bootstrap
 ARG ARCH="amd64"
 ARG DUCKDB_VERSION="v1.1.3"
 ARG HELM_VERSION="v3.16.4"
@@ -45,7 +45,7 @@ RUN apk add --no-cache curl \
     && chmod +x /usr/local/bin/*
 
 
-FROM alpine:3.21.0
+FROM alpine:3.21.3
 WORKDIR /workdir
 COPY --from=bootstrap /usr/local/bin/ /usr/local/bin/
 RUN apk add --no-cache \
