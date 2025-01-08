@@ -8,7 +8,7 @@ FROM ghcr.io/astral-sh/uv:0.5.16 AS uv
 
 FROM hashicorp/boundary:0.18.2 AS boundary
 
-FROM hashicorp/terraform:1.10.3 AS terraform
+FROM hashicorp/terraform:1.10.4 AS terraform
 
 FROM hashicorp/vault:1.18.3 AS vault
 
