@@ -12,7 +12,7 @@ FROM hashicorp/terraform:1.10.4 AS terraform
 
 FROM hashicorp/vault:1.18.3 AS vault
 
-FROM mikefarah/yq:4.44.6 AS yq
+FROM mikefarah/yq:4.45.1 AS yq
 
 FROM rust:alpine AS tailspin
 ARG TSPIN_VERSION="4.0.0"
