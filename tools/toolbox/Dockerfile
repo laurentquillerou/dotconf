@@ -4,7 +4,7 @@ FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
 FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
 
-FROM ghcr.io/astral-sh/uv:0.5.25 AS uv
+FROM ghcr.io/astral-sh/uv:0.5.26 AS uv
 
 FROM hashicorp/boundary:0.18.2 AS boundary
 
