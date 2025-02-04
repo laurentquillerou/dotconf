@@ -1,16 +1,16 @@
-FROM aquasec/trivy:0.58.2 AS trivy
+FROM aquasec/trivy:0.59.0 AS trivy
 
 FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
-FROM ghcr.io/getsops/sops:v3.9.3-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
 
-FROM ghcr.io/astral-sh/uv:0.5.24 AS uv
+FROM ghcr.io/astral-sh/uv:0.5.27 AS uv
 
 FROM hashicorp/boundary:0.18.2 AS boundary
 
 FROM hashicorp/terraform:1.10.5 AS terraform
 
-FROM hashicorp/vault:1.18.3 AS vault
+FROM hashicorp/vault:1.18.4 AS vault
 
 FROM mikefarah/yq:4.45.1 AS yq
 
