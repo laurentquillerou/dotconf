@@ -1,4 +1,4 @@
-FROM aquasec/trivy:0.59.0 AS trivy
+FROM aquasec/trivy:0.59.1 AS trivy
 
 FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
