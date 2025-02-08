@@ -14,6 +14,8 @@ FROM hashicorp/vault:1.18.4 AS vault
 
 FROM mikefarah/yq:4.45.1 AS yq
 
+FROM projectdiscovery/nuclei:v3.3.8 AS nuclei
+
 FROM rust:alpine AS tailspin
 ARG TSPIN_VERSION="4.0.0"
 RUN apk add --no-cache musl-dev \
@@ -28,6 +30,7 @@ ARG TFORMER_VERSION="0.8.24"
 
 COPY --from=boundary /bin/boundary /usr/local/bin/
 COPY --from=jq /jq /usr/local/bin/
+COPY --from=nuclei /usr/local/bin/nuclei /usr/local/bin/
 COPY --from=sops /usr/local/bin/sops /usr/local/bin/
 COPY --from=tailspin /usr/local/cargo/bin/tspin /usr/local/bin/
 COPY --from=terraform /bin/terraform /usr/local/bin/
@@ -78,6 +81,7 @@ RUN apk add --no-cache \
     rsync-zsh-completion \
     tmux \
     tmux-zsh-completion \
+    tokei \
     uv-zsh-completion \
     vim \
     vimdiff \
