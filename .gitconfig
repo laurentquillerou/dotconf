@@ -5,18 +5,6 @@
 [includeIf "gitdir:~/work/"]
   path = ~/work/.gitconfig
 
-[core]
-  editor = vim
-  excludesfile = ${HOME}/.gitignore
-  autocrlf = input
-
-[color]
-  branch = auto
-  diff = auto
-  interactive = auto
-  status = auto
-  ui = true
-
 [alias]
   a = add
   aa = add --all
@@ -30,6 +18,7 @@
   d = diff
   f = fetch -p
   fix = rbi HEAD~2
+  fixb = rbi origin
   l = log
   lg = log --graph --pretty=oneline
   lga = log --graph --decorate --all
@@ -48,6 +37,25 @@
   unstage = reset HEAD
   wup = log -p
 
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = true
+
+[core]
+  editor = vim
+  excludesfile = ${HOME}/.gitignore
+  autocrlf = input
+
+[diff]
+  colorMovedWS = ignore-all-space
+  colorMoved = zebra
+
+[fetch]
+  prune = true
+
 [inspector]
   file-types = java,c,cpp,h,hpp,py,glsl,rb,js,sql,xml,md,txt,csv,lock,example,json,scss,php,yml,css
   list-file-types = true
@@ -57,8 +65,9 @@
 
 [pull]
   rebase = true
+
+[push]
+  autoSetupRemote = true
+
 [rebase]
   autoStash = true
-[diff]
-	color-moved-ws = ignore-all-space
-	colorMoved = zebra
