@@ -1,3 +1,4 @@
+---
 concurrency: ci-${{ github.workflow }}-${{ github.ref }}
 jobs:
   build-tailspin-container:
@@ -19,7 +20,7 @@ jobs:
           context: .
           file: tools/tailspin/Dockerfile
           push: true
-          tags: matamun/tailspin:${{ steps.short-sha.outputs.tag }}
+          tags: matamun/tspin:${{ steps.short-sha.outputs.tag }}
       - if: ${{ github.ref == 'refs/heads/main' }}
         name: Build main
         uses: docker/build-push-action@v6
@@ -27,12 +28,14 @@ jobs:
           context: .
           file: tools/tailspin/Dockerfile
           push: true
-          tags: matamun/tailspin:${{ steps.short-sha.outputs.tag }},matamun/tailspin:latest
+          tags: matamun/tspin:${{ steps.short-sha.outputs.tag }},matamun/tspin:latest
 name: Container - tailspin
 on:
   push:
     paths:
       - .github/workflows/container-tailspin.yaml
       - tools/tailspin/Dockerfile
+  schedule:
+    - cron: 30 7 * * 1
   workflow_dispatch: # Allow to manually trigger the pipeline
 permissions: {}

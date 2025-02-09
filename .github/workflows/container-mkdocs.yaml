@@ -1,3 +1,4 @@
+---
 concurrency: ci-${{ github.workflow }}-${{ github.ref }}
 jobs:
   build-mkdocs-container:
@@ -34,5 +35,7 @@ on:
     paths:
       - .github/workflows/container-mkdocs.yaml
       - tools/mkdocs/Dockerfile
+  schedule:
+    - cron: 30 7 * * 1
   workflow_dispatch: # Allow to manually trigger the pipeline
 permissions: {}
