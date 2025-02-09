@@ -5,11 +5,11 @@ alias a=alias
 case $(uname -s) in
   Linux)
     LSFLAGS='--color=auto --group-directories-first'
-    if [ -x $(which apt) ]; then
+    if [ -x "$(which apt)" ]; then
       a up='apt update && apt -y upgrade && apt -y dist-upgrade && apt autoremove --purge'
-    elif [ -x $(which apk) ]; then
+    elif [ -x "$(which apk)" ]; then
       a up='apk upgrade --purge && sync'
-    elif [ -x $(which yum) ]; then
+    elif [ -x "$(which yum)" ]; then
       a up='yum update'
     fi
     ;;
@@ -20,7 +20,7 @@ case $(uname -s) in
     a sha512sum='shasum -a 512'
     ;;
   OpenBSD)
-    a maj='cd /usr; cvs -d${CVSROOT} up -rOPENBSD_$(uname -r | tr '.' '_') -P src ports'
+    a maj="cd /usr; cvs -d${CVSROOT} up -rOPENBSD_$(uname -r | tr '.' '_') -P src ports"
     a up='pkg_add -ui -F update -F updatedepends'
     ;;
   FreeBSD)
@@ -30,22 +30,20 @@ case $(uname -s) in
 esac
 
 # Aliases
-
 ## container-ized tools
-a da='dr -v $(pwd):/workdir matamun/ansible'
-a ddc='docker run --rm -e user=${USER} -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/src:z -v "${HOME}/OWASP-DC/data":/usr/share/dependency-check/data:z -v $(pwd)/odc-reports:/report:z owasp/dependency-check:latest --scan /src --format "ALL" --project "dependency-check scan: $(pwd)" --out /report'
-a djq='dr -v $(pwd):/workspace -w /workspace ghcr.io/jqlang/jq'
-a djqs='dr -v $(pwd):/workspace -w /workspace ghcr.io/jqlang/jq -S .'
-a dpacker='dr -v $(pwd):/workspace -w /workspace -e PACKER_PLUGIN_PATH=/workspace/.packer.d/plugins hashicorp/packer'
+a da="dr -v $(pwd):/workdir matamun/ansible"
+a ddc="docker run --rm -e user=${USER} -u $(id -u "${USER}"):$(id -g "${USER}") -v $(pwd):/src:z -v ${HOME}/OWASP-DC/data:/usr/share/dependency-check/data:z -v $(pwd)/odc-reports:/report:z owasp/dependency-check:latest --scan /src --format 'ALL' --project dependency-check scan:$(pwd) --out /report"
+a djq="dr -v $(pwd):/workspace -w /workspace ghcr.io/jqlang/jq"
+a djqs="dr -v $(pwd):/workspace -w /workspace ghcr.io/jqlang/jq -S ."
+a dpacker="dr -v $(pwd):/workspace -w /workspace -e PACKER_PLUGIN_PATH=/workspace/.packer.d/plugins hashicorp/packer"
 a dr='docker run --rm -it --security-opt=no-new-privileges'
 a druff='dr $(pwd):/io ghcr.io/astral-sh/ruff'
 a dsl='dr -v $(pwd):/tmp/lint -e RUN_LOCAL=true ghcr.io/super-linter/super-linter:slim-latest'
 a dtb='dr -v $(pwd):/workdir matamun/toolbox'
 a dtf='dr -v $(pwd):/workspace -v ${HOME}/.terraformrc:/workspace/.terraformrc -w /workspace -e TF_CLI_CONFIG_FILE=/workspace/.terraformrc hashicorp/terraform'
-a dtfrdsql='dr -v $(pwd):/tmp noborus/trdsql'
-a dtrdsql='dr -v $(pwd):/tmp trdsql'
-a dtrivy='dr -v /var/run/docker.sock:/var/run/docker.sock -v "${TRIVY_CACHE:-${HOME}/Library/Caches}:/root/.cache/" aquasec/trivy image'
-a dts='dr -v $(pwd):/workdir matamun/tailspin'
+a dtrdsql='dr -v $(pwd):/tmp noborus/trdsql'
+a dtrivy='dr -v /var/run/docker.sock:/var/run/docker.sock -v ${TRIVY_CACHE:-${HOME}/Library/Caches}:/root/.cache/ aquasec/trivy image'
+a dts='dr -v $(pwd):/workdir matamun/tspin'
 a dyq='dr -v $(pwd):/workdir mikefarah/yq'
 a dyqs='dr -v $(pwd):/workdir mikefarah/yq -i -P "sort_keys(..)"'
 

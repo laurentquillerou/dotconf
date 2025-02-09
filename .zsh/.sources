@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 KUBECTL=$(which kubectl)
 if [ -x ${KUBECTL} ]; then
   source <(kubectl completion zsh);

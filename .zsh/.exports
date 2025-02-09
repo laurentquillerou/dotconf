@@ -4,18 +4,18 @@
 export GREP_COLOR='1;33'
 
 # ssh agent
-export HOSTNAME=$(hostname -s)
-export SSH_AUTH_SOCK=${HOME}/.ssh/ssh-agent.${HOSTNAME}.sock
+export HOSTNAME="$(hostname -s)"
+export SSH_AUTH_SOCK="${HOME}/.ssh/ssh-agent.${HOSTNAME}.sock"
 ssh-add -l > /dev/null
 if [ $? -gt 0 ] ; then
-  ssh-agent -a "${SSH_AUTH_SOCK}" > ${HOME}/.ssh/ssh-agent.${HOSTNAME}.info
-  source ${HOME}/.ssh/ssh-agent.${HOSTNAME}.info
+  ssh-agent -a "${SSH_AUTH_SOCK}" > "${HOME}/.ssh/ssh-agent.${HOSTNAME}.info"
+  . "${HOME}/.ssh/ssh-agent.${HOSTNAME}.info"
   ssh-add
 fi
 
 # pager
-MOST=$(which most);
-if [ -x ${MOST} ]; then
+MOST="$(which most)";
+if [ -x "${MOST}" ]; then
   export PAGER='most';
 fi
 
@@ -28,27 +28,27 @@ fi
 export PS1="%F{white}%T%f %F{${LOGIN_COLOR}}%n%f@%F{yellow}%M%f:%F{cyan}%~%f %# "
 
 # socks
-if [ -f ${HOME}/.socks ]; then
-  export TSOCKS_USER=${USER}
-  export TSOCKS_PASSWORD=$(cat ~/.socks)
+if [ -f "${HOME}/.config/socks/socks-passwd" ]; then
+  export TSOCKS_USER="${USER}"
+  export TSOCKS_PASSWORD="$(cat ${HOME}/.config/socks/socks-passwd)"
   export TSOCKS_DEBUG=1
   alias runsocks="tsocks"
 fi
 
 # mbin PATH
-if [ -d ${HOME}/mbin/ ]; then
+if [ -d "${HOME}/mbin/" ]; then
   export PATH="${HOME}/mbin:${PATH}"
 fi
 
 # OpenBSD
-if [ $(uname -s) = "OpenBSD" ]; then
+if [ "$(uname -s)" = "OpenBSD" ]; then
   export CC="ch"
   export PKG_PATH="http://ftp.${CC}.openbsd.org/pub/OpenBSD/$(uname -r)/packages/$(uname -m)/"
   export CVSROOT="anoncvs@anoncvs.${CC}.openbsd.org:/cvs"
 fi
 
 # macOS
-if [ $(uname -s) = "Darwin" ]; then
+if [ "$(uname -s)" = "Darwin" ]; then
   # arcanist
   if [ -d "${HOME}/Library/php/arcanist/bin" ]; then
     export PATH="${HOME}/Library/php/arcanist/bin:${PATH}"
@@ -58,21 +58,22 @@ if [ $(uname -s) = "Darwin" ]; then
     export DOCKER_HOST=unix:///var/run/docker.sock
   fi
   # gcloud
-  if [ -f "${HOME}/work/google-cloud-sdk/path.zsh.inc" -a -f "${HOME}/work/google-cloud-sdk/completion.zsh.inc" ]; then
-    source "${HOME}/work/google-cloud-sdk/path.zsh.inc";
-    source "${HOME}/work/google-cloud-sdk/completion.zsh.inc";
+  if [ -f "${HOME}/work/google-cloud-sdk/path.zsh.inc" ] && [ -f "${HOME}/work/google-cloud-sdk/completion.zsh.inc" ]; then
+    . "${HOME}/work/google-cloud-sdk/path.zsh.inc";
+    . "${HOME}/work/google-cloud-sdk/completion.zsh.inc";
   fi
   # ghostty
   if [ -d "/Applications/Ghostty.app/Contents/MacOS/" ]; then
     export PATH="/Applications/Ghostty.app/Contents/MacOS/:${PATH}"
   fi
   if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-      builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+    . "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
   fi
   # keka
   if [ -d "/Applications/Keka.app/Contents/MacOS/" ]; then
     export PATH="/Applications/Keka.app/Contents/MacOS/:${PATH}"
-    alias keka="Keka --cli"
+    alias keka='Keka --cli'
+    alias kunrar='keka unrar e -y'
   fi
   # ovftool
   if [ -d "/Applications/VMware Fusion.app/Contents/Library/VMware OVF Tool" ]; then
@@ -101,45 +102,43 @@ if [ $(uname -s) = "Darwin" ]; then
 fi
 
 # jenkins
-if [ -r ${HOME}/.jenkins -a -r ${HOME}/.jenkins-url ]; then
-  export JENKINS_TOKEN=$(cat ${HOME}/.jenkins)
-  export JENKINS_URL=$(cat ${HOME}/.jenkins-url)
+if [ -r "${HOME}/.config/jenkins/jenkins-token" ] && [ -r "${HOME}/.config/jenkins/jenkins-url" ]; then
+  export JENKINS_TOKEN="$(cat ${HOME}/.config/jenkins/jenkins-token)"
+  export JENKINS_URL="$(cat ${HOME}/.config/jenkins/jenkins-url)"
   alias lint-pipe="curl --user ${JENKINS_TOKEN} -X POST -F 'jenkinsfile=<Jenkinsfile' https://${JENKINS_URL}/pipeline-model-converter/validate"
 fi
 
 # Artifactory
-if [ -r ${HOME}/.artifacory-url ]; then
-  export ART_URL=$(cat ${HOME}/.artifacory-url)
+if [ -r "${HOME}/.config/jfrog/artifacory-url" ]; then
+  export ART_URL="$(cat ${HOME}/.config/jfrog/artifacory-url)"
 fi
 
 # Xray
-if [ -r ${HOME}/.xray-url ]; then
-  export XRAY_URL=$(cat ${HOME}/.xray-url)
+if [ -r "${HOME}/.config/jfrog/xray-url" ]; then
+  export XRAY_URL="$(cat ${HOME}/.config/jfrog/xray-url)"
 fi
 
 # Terraform
 #export TF_LOG=TRACE
 
 # Prometheus
-if [ -r ${HOME}/.prom-url ]; then
-  export PROM_URL=$(cat ${HOME}/.prom-url)
-  alias rprom="curl -ILX POST http://${PROM_URL}/-/reload"
+if [ -r "${HOME}/.config/prometheus/prom-url" ]; then
+  export PROM_URL="$(cat ${HOME}/.config/prometheus/prom-url)"
+  alias cprom="curl -LX POST http://${PROM_URL}/api/v1/admin/tsdb/clean_tombstones -w '%{http_code}\n'"
+  alias rprom="curl -LX POST http://${PROM_URL}/-/reload -w '%{http_code}\n'"
 fi
 
 # Proxmox
-if [ -r ${HOME}/.proxmox-user -a -r ${HOME}/.proxmox -a -r ${HOME}/.proxmox-url ]; then
-  export PROXMOX_USER=$(cat ${HOME}/.proxmox-user)
-  export PROXMOX_PASSWD=$(cat ${HOME}/.proxmox)
-  export PROXMOX_URL=$(cat ${HOME}/.proxmox-url)
+if [ -r "${HOME}/.config/proxmox/proxmox-user" ] && [ -r "${HOME}/.config/proxmox/proxmox-passwd" ] && [ -r  "${HOME}/.config/proxmox/proxmox-url" ]; then
+  export PROXMOX_USER="$(cat ${HOME}/.config/proxmox/proxmox-user)"
+  export PROXMOX_PASSWD="$(cat ${HOME}/.config/proxmox/proxmox-passwd)"
+  export PROXMOX_URL="$(cat ${HOME}/.config/proxmox/proxmox-url)"
 fi
 
 # quay.io
-if [ -r ${HOME}/.quay-user ]; then
-  export Q_USER=$(cat ${HOME}/.quay-user)
+if [ -r "${HOME}/.config/quay/quay-user" ] && [ -r "${HOME}/.config/quay/quay-token" ]; then
+  export Q_USER="$(cat ${HOME}/.config/quay/quay-user)"
+  export Q_TOKEN="$(cat ${HOME}/.config/quay/quay-token)"
 fi
-if [ -r ${HOME}/.quay-token ]; then
-  export Q_TOKEN=$(cat ${HOME}/.quay-token)
-fi
-
 # AWS
 #export AWS_SDK_LOAD_CONFIG=1
