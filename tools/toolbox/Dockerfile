@@ -6,7 +6,7 @@ FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
 
 FROM ghcr.io/astral-sh/uv:0.6.3 AS uv
 
-FROM hashicorp/boundary:0.18.2 AS boundary
+FROM hashicorp/boundary:0.19.0 AS boundary
 
 FROM hashicorp/terraform:1.10.5 AS terraform
 
