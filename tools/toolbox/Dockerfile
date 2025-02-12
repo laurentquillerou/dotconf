@@ -63,6 +63,7 @@ RUN apk add --no-cache \
     git \
     git-zsh-completion \
     gnupg \
+    jujutsu \
     k9s \
     k9s-zsh-completion \
     less \
