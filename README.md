@@ -10,6 +10,8 @@ DUCKDB_VERSION="v1.1.3"; curl -LO "https://github.com/duckdb/duckdb/releases/dow
 
 HELM_VER="3.16.4"; curl -L "https://get.helm.sh/helm-v${HELM_VER}-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)/helm"
 
+JJ_VER="v0.26.0"; curl -L "https://github.com/jj-vcs/jj/releases/download/${JJ_VER}/jj-${JJ_VER}-aarch64-apple-darwin.tar.gz" | tar zxf - jj
+
 JQ_VER="1.7.1"; curl -L "https://github.com/jqlang/jq/releases/download/jq-${JQ_VER}/jq-macos-$(uname -m)" -o jq
 xattr -c jq
 
