@@ -6,11 +6,13 @@
 ARIA_VER="1.35.0"; curl -L "https://github.com/aria2/aria2/releases/download/release-${ARIA_VER}/aria2-${ARIA_VER}-osx-$(uname -s | tr '[:upper:]' '[:lower:]').tar.bz2" | tar jxf --strip-components 2 aria2-${ARIA_VER}/bin/aria2c
 xattr -c aria2c
 
-CILIUM_VER="v0.16.24"; curl -L https://github.com/cilium/cilium-cli/releases/download/${CILIUM_VER}/cilium-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64.tar.gz | tar zxf - -C /usr/local/bin/
+CILIUM_VER="v0.16.24"; curl -L https://github.com/cilium/cilium-cli/releases/download/${CILIUM_VER}/cilium-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64.tar.gz | tar zxf -
 
 DUCKDB_VER="v1.1.3"; curl -LO "https://github.com/duckdb/duckdb/releases/download/${DUCKDB_VER}/duckdb_cli-osx-universal.zip" | unzip -oqK - duckdb
 
-HELM_VER="3.17.1"; curl -L "https://get.helm.sh/helm-v${HELM_VER}-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)/helm"
+HELM_VER="3.17.1"; curl -L "https://get.helm.sh/helm-v${HELM_VER}-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz" | tar zxf - --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)/helm"
+
+HUBBLE_VER="v1.17.1"; curl -L https://github.com/cilium/hubble/releases/download/${HUBBLE_VER}/hubble-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz | tar zxf -
 
 JJ_VER="v0.26.0"; curl -L "https://github.com/jj-vcs/jj/releases/download/${JJ_VER}/jj-${JJ_VER}-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz" | tar zxf - jj
 
