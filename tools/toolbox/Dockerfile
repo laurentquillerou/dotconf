@@ -4,7 +4,7 @@ FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
 FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
 
-FROM ghcr.io/astral-sh/uv:0.6.2 AS uv
+FROM ghcr.io/astral-sh/uv:0.6.3 AS uv
 
 FROM cilium/cilium:v1.17.1 AS cilium
 
