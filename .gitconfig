@@ -37,6 +37,9 @@
   unstage = reset HEAD
   wup = log -p
 
+[branch]
+  sort = -committerdate
+
 [color]
   branch = auto
   diff = auto
@@ -44,17 +47,31 @@
   status = auto
   ui = true
 
+[column]
+  ui = auto
+
+[commit]
+  verbose = true
+
 [core]
   editor = vim
   excludesfile = ${HOME}/.gitignore
   autocrlf = input
 
 [diff]
+  #algorithm = histogram
   colorMovedWS = ignore-all-space
-  colorMoved = zebra
+  colorMoved = zebra # plain
+  mnemonicPrefix = true
+  renames = true
 
 [fetch]
+  all = true
   prune = true
+  pruneTags = true
+
+[init]
+  defaultBranch = main
 
 [inspector]
   file-types = java,c,cpp,h,hpp,py,glsl,rb,js,sql,xml,md,txt,csv,lock,example,json,scss,php,yml,css
@@ -68,6 +85,13 @@
 
 [push]
   autoSetupRemote = true
+  default = simple
+  followTags = true
 
 [rebase]
+  autoSquash = true
   autoStash = true
+  updateRefs = true
+
+[tag]
+  sort = version:refname
