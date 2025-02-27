@@ -46,7 +46,6 @@ COPY --from=yq /usr/bin/yq /usr/local/bin/
 
 RUN apk add --no-cache curl \
     && curl -LSfs "https://get.helm.sh/helm-${HELM_VERSION}-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}/helm" \
-    && curl -LSfs "https://dl.k8s.io/release/${KCTL_VERSION}/bin/$(uname -s | tr '[:upper:]' '[:lower:]')/${ARCH}/kubectl" -o /usr/local/bin/kubectl \
     && curl -LSfs "https://github.com/GoogleCloudPlatform/terraformer/releases/download/${TFORMER_VERSION}/terraformer-all-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}" -o /usr/local/bin/terraformer \
     && curl -LOSfs "https://github.com/duckdb/duckdb/releases/download/${DUCKDB_VERSION}/duckdb_cli-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.zip" \
       && unzip -oqK -d /usr/local/bin/ "duckdb_cli-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.zip" duckdb \
@@ -71,6 +70,8 @@ RUN apk add --no-cache \
     jujutsu \
     k9s \
     k9s-zsh-completion \
+    kubectl \
+    kubectl-zsh-completion \
     less \
     mkdocs \
     most \
