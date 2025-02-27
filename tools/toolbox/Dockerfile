@@ -1,12 +1,14 @@
 FROM aquasec/trivy:0.62.1 AS trivy
 
-FROM ghcr.io/jqlang/jq:1.7.1 AS jq
-
-FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
+FROM cilium/cilium:v1.17.1 AS cilium
 
 FROM ghcr.io/astral-sh/uv:0.6.3 AS uv
 
-FROM cilium/cilium:v1.17.1 AS cilium
+FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
+
+FROM ghcr.io/jqlang/jq:1.7.1 AS jq
+
+FROM ghcr.io/mr-karan/doggo:1.0.5 as doggo
 
 FROM hashicorp/boundary:0.19.0 AS boundary
 
