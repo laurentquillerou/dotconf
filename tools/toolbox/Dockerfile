@@ -2,7 +2,7 @@ FROM aquasec/trivy:0.59.1 AS trivy
 
 FROM cilium/cilium:v1.17.1 AS cilium
 
-FROM ghcr.io/astral-sh/uv:0.6.3 AS uv
+FROM ghcr.io/astral-sh/uv:0.6.4 AS uv
 
 FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
 
