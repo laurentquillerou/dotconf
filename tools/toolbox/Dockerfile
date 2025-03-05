@@ -12,7 +12,7 @@ FROM ghcr.io/mr-karan/doggo:1.0.5 as doggo
 
 FROM hashicorp/boundary:0.19.0 AS boundary
 
-FROM hashicorp/terraform:1.11.0 AS terraform
+FROM hashicorp/terraform:1.11.1 AS terraform
 
 FROM hashicorp/vault:1.18.5 AS vault
 
