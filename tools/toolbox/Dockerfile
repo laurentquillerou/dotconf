@@ -14,7 +14,7 @@ FROM hashicorp/boundary:0.19.1 AS boundary
 
 FROM hashicorp/terraform:1.11.1 AS terraform
 
-FROM hashicorp/vault:1.18.5 AS vault
+FROM hashicorp/vault:1.19.0 AS vault
 
 FROM mikefarah/yq:4.45.1 AS yq
 
