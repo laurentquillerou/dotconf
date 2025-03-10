@@ -24,6 +24,12 @@ updates:
       - dockerhub
     schedule:
       interval: daily
+  - directory: /tools/tokei/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
   - directory: /tools/toolbox/
     package-ecosystem: docker
     registries:
