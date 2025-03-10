@@ -18,6 +18,7 @@ FROM projectdiscovery/nuclei:v3.3.8 AS nuclei
 
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
+ARG DEBIAN_FRONTEND=noninteractive
 ARG HELM_VERSION="v3.16.4"
 ARG K8S_VERISON="v1.32"
 ARG TSPIN_VERSION="4.0.0"
@@ -35,7 +36,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   curl \
   gnupg \
   && curl -LSfs "https://apt.releases.hashicorp.com/gpg" | gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg \
-  && echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(sed -n 's/xVERSION_CODENAME=//p' /etc/os-release) main" > /etc/apt/sources.list.d/hashicorp.list \
+  && echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(sed -n 's/VERSION_CODENAME=//p' /etc/os-release) main" > /etc/apt/sources.list.d/hashicorp.list \
   && curl -LSfs "https://pkgs.k8s.io/core:/stable:/${K8S_VERISON}/deb/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg \
   && echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${K8S_VERISON}/deb/ /" > /etc/apt/sources.list.d/kubernetes.list \
   && curl -LSfs "https://get.helm.sh/helm-${HELM_VERSION}-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}/helm" \
@@ -44,6 +45,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 
 FROM debian:stable-backports
+ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /workdir
 COPY --from=bootstrap /usr/local/bin/ /usr/local/bin/
 COPY --from=bootstrap /etc/ /etc/
