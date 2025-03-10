@@ -2,101 +2,68 @@ FROM aquasec/trivy:0.60.0 AS trivy
 
 FROM cilium/cilium:v1.17.1 AS cilium
 
+FROM derailed/k9s:v0.40.6 AS k9s
+
 FROM ghcr.io/astral-sh/uv:0.6.5 AS uv
 
 FROM ghcr.io/getsops/sops:v3.9.4-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
-FROM ghcr.io/mr-karan/doggo:1.0.5 as doggo
-
-FROM hashicorp/boundary:0.19.1 AS boundary
-
-FROM hashicorp/terraform:1.11.1 AS terraform
-
-FROM hashicorp/vault:1.19.0 AS vault
+FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
 
 FROM mikefarah/yq:4.45.1 AS yq
 
 FROM projectdiscovery/nuclei:v3.3.8 AS nuclei
 
-FROM rust:alpine AS tailspin
-ARG TSPIN_VERSION="4.0.0"
-RUN apk add --no-cache musl-dev \
-    && cargo install --version ${TSPIN_VERSION} tailspin
-
-FROM alpine:3.21.3 AS bootstrap
-ARG ARCH="amd64"
-ARG DUCKDB_VERSION="v1.1.3"
+FROM debian:stable-backports AS bootstrap
+ARG ARCH=amd64
 ARG HELM_VERSION="v3.16.4"
-ARG KCTL_VERSION="v1.31.3"
-ARG TFORMER_VERSION="0.8.24"
-
-COPY --from=boundary /bin/boundary /usr/local/bin/
+ARG K8S_VERISON="v1.32"
+ARG TSPIN_VERSION="4.0.0"
 COPY --from=cilium /usr/bin/cilium /usr/bin/hubble /usr/local/bin/
+COPY --from=doggo /usr/bin/doggo /usr/local/bin/
 COPY --from=jq /jq /usr/local/bin/
+COPY --from=k9s /bin/k9s /usr/local/bin/
 COPY --from=nuclei /usr/local/bin/nuclei /usr/local/bin/
 COPY --from=sops /usr/local/bin/sops /usr/local/bin/
-COPY --from=tailspin /usr/local/cargo/bin/tspin /usr/local/bin/
-COPY --from=terraform /bin/terraform /usr/local/bin/
 COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/
 COPY --from=uv /uv /uvx /usr/local/bin/
-COPY --from=vault /bin/vault /usr/local/bin/
 COPY --from=yq /usr/bin/yq /usr/local/bin/
+RUN apt-get update && apt-get install --no-install-recommends -y \
+  ca-certificates \
+  curl \
+  gnupg \
+  && curl -LSfs "https://apt.releases.hashicorp.com/gpg" | gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg \
+  && echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(sed -n 's/xVERSION_CODENAME=//p' /etc/os-release) main" > /etc/apt/sources.list.d/hashicorp.list \
+  && curl -LSfs "https://pkgs.k8s.io/core:/stable:/${K8S_VERISON}/deb/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg \
+  && echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${K8S_VERISON}/deb/ /" > /etc/apt/sources.list.d/kubernetes.list \
+  && curl -LSfs "https://get.helm.sh/helm-${HELM_VERSION}-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}/helm" \
+  && curl -LSfs "https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VERSION}/tailspin-x86_64-unknown-linux-musl.tar.gz" | tar xzf - -C /usr/local/bin/ \
+  && chmod +x /usr/local/bin/*
 
-RUN apk add --no-cache curl \
-    && curl -LSfs "https://get.helm.sh/helm-${HELM_VERSION}-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}/helm" \
-    && curl -LSfs "https://github.com/GoogleCloudPlatform/terraformer/releases/download/${TFORMER_VERSION}/terraformer-all-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}" -o /usr/local/bin/terraformer \
-    && curl -LOSfs "https://github.com/duckdb/duckdb/releases/download/${DUCKDB_VERSION}/duckdb_cli-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.zip" \
-      && unzip -oqK -d /usr/local/bin/ "duckdb_cli-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.zip" duckdb \
-    && chmod +x /usr/local/bin/*
 
-
-FROM alpine:3.21.3
+FROM debian:stable-backports
 WORKDIR /workdir
 COPY --from=bootstrap /usr/local/bin/ /usr/local/bin/
-RUN apk add --no-cache \
-    ansible \
-    apk-tools-zsh-completion \
-    aria2 \
-    black \
-    black-zsh-completion \
-    curl \
-    curl-zsh-completion \
-    file \
-    git \
-    git-zsh-completion \
-    gnupg \
-    jujutsu \
-    k9s \
-    k9s-zsh-completion \
-    kubectl \
-    kubectl-zsh-completion \
-    less \
-    mkdocs \
-    most \
-    oh-my-zsh \
-    openssh-client \
-    py3-pathspec \
-    py3-pip \
-    py3-pip-zsh-completion \
-    rage \
-    rage-zsh-completion \
-    ruff \
-    ruff-zsh-completion \
-    rsync \
-    rsync-zsh-completion \
-    tmux \
-    tmux-zsh-completion \
-    tokei \
-    uv-zsh-completion \
-    vim \
-    vimdiff \
-    zsh \
-    zsh-autosuggestions \
-    zsh-completions \
-    && ln -s /usr/share/oh-my-zsh/templates/zshrc.zsh-template /.zshrc \
-    && mkdir -p /.cache \
-    && chown nobody:nogroup /.cache
+COPY --from=bootstrap /etc/ /etc/
+RUN apt-get update && apt-get install --no-install-recommends -y \
+  boundary \
+  ca-certificates \
+  curl \
+  git \
+  gnupg \
+  kubectl \
+  less \
+  openssh-client \
+  rsync \
+  terraform \
+  terraform-ls \
+  tmux \
+  vim-nox \
+  vault \
+  zsh \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 USER nobody
-ENTRYPOINT ["/bin/zsh"]
+ENTRYPOINT ["/usr/bin/zsh"]
