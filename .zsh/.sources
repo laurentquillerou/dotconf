@@ -1,4 +1,8 @@
 #!/usr/bin/env zsh
+if [ -x "$(which docker)" ]; then
+  source <(docker completion zsh);
+fi
+
 if [ -x "$(which helm)" ]; then
   source <(helm completion zsh);
 fi
