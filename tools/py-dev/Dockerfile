@@ -1,4 +1,4 @@
-FROM derailed/k9s:v0.40.11 AS k9s
+FROM derailed/k9s:v0.50.0 AS k9s
 
 FROM ghcr.io/astral-sh/uv:0.6.11 AS uv
 
