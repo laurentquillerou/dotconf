@@ -6,7 +6,7 @@ FROM derailed/k9s:v0.50.3 AS k9s
 
 FROM ghcr.io/astral-sh/uv:0.6.14 AS uv
 
-FROM ghcr.io/getsops/sops:v3.10.1-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.10.2-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
