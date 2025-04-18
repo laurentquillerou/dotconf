@@ -41,9 +41,9 @@ if [ "$(uname -s)" = "Darwin" ]; then
     export PATH="/Applications/VMware OVF Tool:${PATH}"
   fi
   # python3
-  PY_VERSION="3.12"
-  if [ -d "${HOME}/Library/Python/${PY_VERSION}/bin" ]; then
-     export PATH="${HOME}/Library/Python/${PY_VERSION}/bin:${PATH}"
+  PY_VER="3.12"
+  if [ -d "${HOME}/Library/Python/${PY_VER}/bin" ]; then
+     export PATH="${HOME}/Library/Python/${PY_VER}/bin:${PATH}"
   fi
   # rust
   if [ -d "${HOME}/.cargo/bin" ]; then
