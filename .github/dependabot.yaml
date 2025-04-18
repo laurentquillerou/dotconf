@@ -18,6 +18,12 @@ updates:
       - dockerhub
     schedule:
       interval: daily
+  - directory: /tools/py-dev/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
   - directory: /tools/tailspin/
     package-ecosystem: docker
     registries:
