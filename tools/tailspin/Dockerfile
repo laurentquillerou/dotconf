@@ -1,8 +1,8 @@
 FROM rust:alpine AS build
-ARG TSPIN_VERSION=5.0.0
+ARG TSPIN_VER=5.3.0
 RUN apk add --no-cache  \
     musl-dev \
-    && cargo install --version ${TSPIN_VERSION} tailspin
+    && cargo install --version ${TSPIN_VER} tailspin
 
 
 FROM alpine:3.21.3

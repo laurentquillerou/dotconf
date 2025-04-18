@@ -1,8 +1,8 @@
 FROM rust:alpine AS build
-ARG TOKEI_VERSION=12.1.2
+ARG TOKEI_VER=12.1.2
 RUN apk add --no-cache  \
     musl-dev \
-    && cargo install --version ${TOKEI_VERSION} tokei
+    && cargo install --version ${TOKEI_VER} tokei
 
 
 FROM alpine:3.21.3
