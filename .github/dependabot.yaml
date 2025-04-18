@@ -6,6 +6,12 @@ registries:
     url: registry.hub.docker.com
     username: ${{ secrets.CONTAINER_REGISTRY_USER }}
 updates:
+  - directory: /tools/py-dev/
+    package-ecosystem: docker
+    registries:
+      - dockerhub
+    schedule:
+      interval: daily
   - directory: /tools/ansible/
     package-ecosystem: docker
     registries:
