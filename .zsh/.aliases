@@ -44,6 +44,7 @@ a dtf='dr -v $(pwd):/workspace -v ${HOME}/.terraformrc:/workspace/.terraformrc -
 a dtrdsql='dr -v $(pwd):/tmp noborus/trdsql'
 a dtrivy='dr -v /var/run/docker.sock:/var/run/docker.sock -v ${TRIVY_CACHE:-${HOME}/Library/Caches}:/root/.cache/ aquasec/trivy image'
 a dts='dr -v $(pwd):/workdir matamun/tspin'
+a duv='dr -v $(pwd):/io ghcr.io/astral-sh/uv'
 a dyq='dr -v $(pwd):/workdir mikefarah/yq'
 a dyqs='dr -v $(pwd):/workdir mikefarah/yq -i -P "sort_keys(..)"'
 
