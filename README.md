@@ -25,6 +25,8 @@ KCTL_VER="v1.32.3"; curl -LO "https://dl.k8s.io/release/${KCTL_VER}/bin/$(uname 
 
 RAGE_VER="v0.11.1"; curl -L "https://github.com/str4d/rage/releases/download/${RAGE_VER}/rage-${RAGE_VER}-$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz" | tar zxf - --strip-components 1
 
+RUFF_VER="0.11.7"; curl -L "https://github.com/astral-sh/ruff/releases/download/${RUFF_VER}/ruff-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz" | tar zxf - --strip-components 1 ruff-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]')/ruff
+
 SOPS_VER="v3.10.2"; curl -L "https://github.com/getsops/sops/releases/download/${SOPS_VER}/sops-${SOPS_VER}.$(uname -s | tr '[:upper:]' '[:lower:]').$(uname -m)" -o sops
 
 TART_VER="2.24.1"; curl -L "https://github.com/cirruslabs/tart/releases/download/${TART_VER}/tart.tar.gz" | tar zxf - tart.app
@@ -37,6 +39,8 @@ TFORM_LS_VER="0.36.4"; curl -LOSfs "https://releases.hashicorp.com/terraform-ls/
 TRIVY_VER="0.61.1"; curl -L "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VER}/trivy_${TRIVY_VER}_macOS-ARM64.tar.gz" | tar zxf - trivy
 
 TSPIN_VER="5.3.0"; curl -L "https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VER}/tailspin-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz" | tar zxf -
+
+UV_VER="0.7.1"; curl -L https://github.com/astral-sh/uv/releases/download/${UV_VER}/uv-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz | tar zxf - --strip-components 1 uv-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]')/uv
 
 VAULT_VER="1.19.1"; curl -LO "https://releases.hashicorp.com/vault/${VAULT_VER}/vault_${VAULT_VER}_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).zip" && unzip -oqK vault_${VAULT_VER}_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).zip vault
 
