@@ -40,7 +40,7 @@ TRIVY_VER="0.61.1"; curl -L "https://github.com/aquasecurity/trivy/releases/down
 
 TSPIN_VER="5.3.0"; curl -L "https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VER}/tailspin-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz" | tar zxf -
 
-UV_VER="0.7.1"; curl -L https://github.com/astral-sh/uv/releases/download/${UV_VER}/uv-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz | tar zxf - --strip-components 1 uv-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]')/uv
+UV_VER="0.7.1"; curl -L https://github.com/astral-sh/uv/releases/download/${UV_VER}/uv-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz | tar zxf - --strip-components 1 uv-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]')/{uv,uvx}
 
 VAULT_VER="1.19.1"; curl -LO "https://releases.hashicorp.com/vault/${VAULT_VER}/vault_${VAULT_VER}_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).zip" && unzip -oqK vault_${VAULT_VER}_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).zip vault
 
