@@ -12,7 +12,7 @@ FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
 FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
 
-FROM mikefarah/yq:4.45.1 AS yq
+FROM mikefarah/yq:4.45.2 AS yq
 
 FROM projectdiscovery/nuclei:v3.4.2 AS nuclei
 
