@@ -2,7 +2,7 @@ FROM aquasec/trivy:0.62.1 AS trivy
 
 FROM cilium/cilium:v1.17.3 AS cilium
 
-FROM derailed/k9s:v0.50.5 AS k9s
+FROM derailed/k9s:v0.50.6 AS k9s
 
 FROM ghcr.io/astral-sh/uv:0.7.3 AS uv
 
@@ -12,7 +12,7 @@ FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
 FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
 
-FROM mikefarah/yq:4.45.3 AS yq
+FROM mikefarah/yq:4.45.4 AS yq
 
 FROM projectdiscovery/nuclei:v3.4.3 AS nuclei
 
