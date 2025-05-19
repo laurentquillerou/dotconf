@@ -12,6 +12,8 @@ FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
 FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
 
+FROM ghcr.io/xampprocky/tokei:latest AS tokei
+
 FROM mikefarah/yq:4.45.4 AS yq
 
 FROM projectdiscovery/nuclei:v3.4.4 AS nuclei
@@ -28,6 +30,7 @@ COPY --from=jq /jq /usr/local/bin/
 COPY --from=k9s /bin/k9s /usr/local/bin/
 COPY --from=nuclei /usr/local/bin/nuclei /usr/local/bin/
 COPY --from=sops /usr/local/bin/sops /usr/local/bin/
+COPY --from=tokei /usr/local/bin/tokei /usr/local/bin/
 COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/
 COPY --from=uv /uv /uvx /usr/local/bin/
 COPY --from=yq /usr/bin/yq /usr/local/bin/
