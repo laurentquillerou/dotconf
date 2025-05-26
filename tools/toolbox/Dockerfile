@@ -23,6 +23,7 @@ ARG ARCH=amd64
 ARG DEBIAN_FRONTEND=noninteractive
 ARG HELM_VER="v3.16.4"
 ARG K8S_VER="v1.32"
+ARG KUNAI_VER="v0.5.5"
 ARG TSPIN_VER="5.4.3"
 COPY --from=cilium /usr/bin/cilium /usr/bin/hubble /usr/local/bin/
 COPY --from=doggo /usr/bin/doggo /usr/local/bin/
@@ -46,6 +47,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${K8S_VER}/deb/ /" > /etc/apt/sources.list.d/kubernetes.list \
   && curl -LSfs "https://get.helm.sh/helm-${HELM_VER}-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}/helm" \
   && curl -LSfs "https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VER}/tailspin-x86_64-unknown-linux-musl.tar.gz" | tar xzf - -C /usr/local/bin/ \
+  && curl -LSfs "https://github.com/kunai-project/kunai/releases/download/${KUNAI_VER}/kunai-${ARCH}" -o /usr/local/bin/kunai \
   && chmod +x /usr/local/bin/*
 
 
