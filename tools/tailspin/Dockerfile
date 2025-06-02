@@ -5,7 +5,7 @@ RUN apk add --no-cache  \
     && cargo install --version ${TSPIN_VER} tailspin
 
 
-FROM alpine:3.21.3
+FROM alpine:3.22.0
 WORKDIR /workdir
 COPY --from=build /usr/local/cargo/bin/tspin /usr/local/bin/tspin
 RUN apk add --no-cache \
