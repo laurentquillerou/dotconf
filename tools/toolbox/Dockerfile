@@ -16,7 +16,7 @@ FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
 FROM mikefarah/yq:4.45.4 AS yq
 
-FROM projectdiscovery/nuclei:v3.4.4 AS nuclei
+FROM projectdiscovery/nuclei:v3.4.5 AS nuclei
 
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
