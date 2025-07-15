@@ -2,7 +2,7 @@ FROM aquasec/trivy:0.64.1 AS trivy
 
 FROM cilium/cilium:v1.17.5 AS cilium
 
-FROM derailed/k9s:v0.50.6 AS k9s
+FROM derailed/k9s:v0.50.8 AS k9s
 
 FROM ghcr.io/astral-sh/uv:0.7.20 AS uv
 
