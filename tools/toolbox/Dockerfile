@@ -4,7 +4,7 @@ FROM cilium/cilium:v1.17.6 AS cilium
 
 FROM derailed/k9s:v0.50.9 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.7.22 AS uv
+FROM ghcr.io/astral-sh/uv:0.8.2 AS uv
 
 FROM ghcr.io/getsops/sops:v3.10.2-alpine AS sops
 
@@ -14,7 +14,7 @@ FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
 
 FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
-FROM mikefarah/yq:4.46.1 AS yq
+FROM mikefarah/yq:4.47.1 AS yq
 
 FROM projectdiscovery/nuclei:v3.4.7 AS nuclei
 
