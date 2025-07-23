@@ -14,7 +14,7 @@ FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
 
 FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
-FROM mikefarah/yq:4.46.1 AS yq
+FROM mikefarah/yq:4.47.1 AS yq
 
 FROM projectdiscovery/nuclei:v3.4.7 AS nuclei
 
