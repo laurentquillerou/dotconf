@@ -1,4 +1,4 @@
-FROM aquasec/trivy:0.64.1 AS trivy
+FROM aquasec/trivy:0.65.0 AS trivy
 
 FROM cilium/cilium:v1.17.6 AS cilium
 
