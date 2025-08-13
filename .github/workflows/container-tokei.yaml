@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - id: short-sha
         name: Get short SHA
         run: echo "tag=$(git rev-parse --short HEAD)" >> "${GITHUB_OUTPUT}"
