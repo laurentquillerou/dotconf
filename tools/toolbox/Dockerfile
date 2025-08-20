@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   curl \
   gnupg \
   && curl -LSfs "https://aquasecurity.github.io/trivy-repo/deb/public.key" | gpg --dearmor -o /etc/apt/keyrings/trivy.gpg \
-  && echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(sed -n 's/VERSION_CODENAME=//p' /etc/os-release) main" > /etc/apt/sources.list.d/trivy.list \
+  && echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" > /etc/apt/sources.list.d/trivy.list \
   && curl -LSfs "https://apt.releases.hashicorp.com/gpg" | gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg \
   && echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(sed -n 's/VERSION_CODENAME=//p' /etc/os-release) main" > /etc/apt/sources.list.d/hashicorp.list \
   && curl -LSfs "https://pkgs.k8s.io/core:/stable:/${K8S_VER}/deb/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg \
@@ -54,7 +54,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 FROM debian:stable-backports
 ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /workdir
-COPY --from=bootstrap /usr/local/bin/ /usr/local/bin/
+COPY --from=bootstrap /usr/ /usr/
 COPY --from=bootstrap /etc/ /etc/
 RUN apt-get update && apt-get install --no-install-recommends -y \
   boundary \
