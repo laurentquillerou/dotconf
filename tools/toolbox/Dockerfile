@@ -1,10 +1,10 @@
 FROM aquasec/trivy:0.65.0 AS trivy
 
-FROM cilium/cilium:v1.18.0 AS cilium
+FROM cilium/cilium:v1.18.1 AS cilium
 
 FROM derailed/k9s:v0.50.9 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.8.9 AS uv
+FROM ghcr.io/astral-sh/uv:0.8.12 AS uv
 
 FROM ghcr.io/getsops/sops:v3.10.2-alpine AS sops
 
