@@ -1,6 +1,6 @@
 FROM derailed/k9s:v0.50.9 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.8.13 AS uv
+FROM ghcr.io/astral-sh/uv:0.8.14 AS uv
 
 FROM ghcr.io/astral-sh/ruff:0.12.11 AS ruff
 
