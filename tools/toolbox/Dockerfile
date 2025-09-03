@@ -4,7 +4,7 @@ FROM cilium/cilium:v1.18.1 AS cilium
 
 FROM derailed/k9s:v0.50.9 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.8.13 AS uv
+FROM ghcr.io/astral-sh/uv:0.8.14 AS uv
 
 FROM ghcr.io/getsops/sops:v3.10.2-alpine AS sops
 
@@ -16,7 +16,7 @@ FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
 FROM mikefarah/yq:4.47.1 AS yq
 
-FROM projectdiscovery/nuclei:v3.4.9 AS nuclei
+FROM projectdiscovery/nuclei:v3.4.10 AS nuclei
 
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
