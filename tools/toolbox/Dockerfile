@@ -21,10 +21,10 @@ FROM projectdiscovery/nuclei:v3.4.10 AS nuclei
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
 ARG DEBIAN_FRONTEND=noninteractive
-ARG HELM_VER="v3.16.4"
+ARG HELM_VER="v3.18.6"
 ARG K8S_VER="v1.32"
 ARG KUNAI_VER="v0.5.5"
-ARG TSPIN_VER="5.4.3"
+ARG TSPIN_VER="5.5.0"
 COPY --from=cilium /usr/bin/cilium /usr/bin/hubble /usr/local/bin/
 COPY --from=doggo /usr/bin/doggo /usr/local/bin/
 COPY --from=jq /jq /usr/local/bin/
