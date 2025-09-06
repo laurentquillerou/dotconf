@@ -14,6 +14,8 @@ FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
 
 FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
+FROM ghcr.io/zizmorcore/zizmor:latest AS zizmor
+
 FROM mikefarah/yq:4.47.1 AS yq
 
 FROM projectdiscovery/nuclei:v3.4.10 AS nuclei
@@ -35,6 +37,7 @@ COPY --from=tokei /usr/local/bin/tokei /usr/local/bin/
 COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/
 COPY --from=uv /uv /uvx /usr/local/bin/
 COPY --from=yq /usr/bin/yq /usr/local/bin/
+COPY --from=zizmor /usr/bin/zizmor /usr/local/bin/
 RUN apt-get update && apt-get install --no-install-recommends -y \
   ca-certificates \
   curl \

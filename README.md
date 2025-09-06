@@ -45,4 +45,6 @@ UV_VER="0.7.12"; curl -L https://github.com/astral-sh/uv/releases/download/${UV_
 VAULT_VER="1.19.5"; curl -LO "https://releases.hashicorp.com/vault/${VAULT_VER}/vault_${VAULT_VER}_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).zip" && unzip -oqK vault_${VAULT_VER}_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).zip vault
 
 YQ_VER="v4.45.4"; curl -L "https://github.com/mikefarah/yq/releases/download/${YQ_VER}/yq_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m)" -o yq
+
+ZIZMOR_VER="v1.12.1"; curl -L "https://github.com/zizmorcore/zizmor/releases/download/${ZIZMORE_VER}/zizmor-aarch64-apple-$(uname -s | tr '[:upper:]' '[:lower:]').tar.gz
 ```
