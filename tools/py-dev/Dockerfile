@@ -8,7 +8,7 @@ FROM ghcr.io/getsops/sops:v3.10.2-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.8.1 AS jq
 
-FROM mikefarah/yq:4.47.1 AS yq
+FROM mikefarah/yq:4.47.2 AS yq
 
 
 FROM debian:stable-backports AS bootstrap
