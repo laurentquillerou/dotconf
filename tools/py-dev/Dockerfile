@@ -2,7 +2,7 @@ FROM derailed/k9s:v0.50.9 AS k9s
 
 FROM ghcr.io/astral-sh/uv:0.8.17 AS uv
 
-FROM ghcr.io/astral-sh/ruff:0.13.0 AS ruff
+FROM ghcr.io/astral-sh/ruff:0.13.1 AS ruff
 
 FROM ghcr.io/getsops/sops:v3.10.2-alpine AS sops
 
