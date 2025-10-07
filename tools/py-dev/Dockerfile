@@ -4,7 +4,7 @@ FROM ghcr.io/astral-sh/uv:0.8.24 AS uv
 
 FROM ghcr.io/astral-sh/ruff:0.13.3 AS ruff
 
-FROM ghcr.io/getsops/sops:v3.10.2-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.8.1 AS jq
 
