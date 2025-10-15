@@ -14,8 +14,8 @@ FROM mikefarah/yq:4.48.1 AS yq
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
 ARG DEBIAN_FRONTEND=noninteractive
-ARG HELM_VER="v3.17.3"
-ARG K8S_VER="v1.32"
+ARG HELM_VER="v3.19.0"
+ARG K8S_VER="v1.34"
 ARG TSPIN_VER="5.5.0"
 COPY --from=jq /jq /usr/local/bin/
 COPY --from=k9s /bin/k9s /usr/local/bin/
@@ -46,7 +46,7 @@ WORKDIR /workdir/
 COPY --from=bootstrap /usr/local/bin/ /usr/local/bin/
 COPY --from=bootstrap /etc/ /etc/
 ENV UV_COMPILE_BYTECODE=1
-  #UV_INDEX_URL=
+#  UV_INDEX_URL=
 RUN apt-get update && apt-get install --no-install-recommends -y \
   ca-certificates \
   curl \
