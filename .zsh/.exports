@@ -41,7 +41,7 @@ if [ "$(uname -s)" = "Darwin" ]; then
     export PATH="/Applications/VMware OVF Tool:${PATH}"
   fi
   # python3
-  PY_VER="3.12"
+  PY_VER="3.14"
   if [ -d "${HOME}/Library/Python/${PY_VER}/bin" ]; then
      export PATH="${HOME}/Library/Python/${PY_VER}/bin:${PATH}"
   fi
