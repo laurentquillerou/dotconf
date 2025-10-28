@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
       - id: short-sha
         name: Get short SHA
         run: echo "tag=$(git rev-parse --short HEAD)" >> "${GITHUB_OUTPUT}"

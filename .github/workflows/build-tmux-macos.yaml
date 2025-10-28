@@ -12,18 +12,20 @@ jobs:
       - env:
           CPPFLAGS: -I/opt/homebrew/openssl@3.3/include
           LDFLAGS: -L/opt/homebrew/openssl@3.3/lib
+          STEPS_LIBEVENT_VER_OUTPUTS_VERSION: ${{ steps.libevent-ver.outputs.version }}
         name: Build libevent
         run: |
-          curl -L https://github.com/libevent/libevent/releases/download/release-${{ steps.libevent-ver.outputs.version }}-stable/libevent-${{ steps.libevent-ver.outputs.version }}-stable.tar.gz | tar zxf -
+          curl -L "https://github.com/libevent/libevent/releases/download/release-${STEPS_LIBEVENT_VER_OUTPUTS_VERSION}-stable/libevent-${STEPS_LIBEVENT_VER_OUTPUTS_VERSION}-stable.tar.gz" | tar zxf -
           cd libevent-*
           ./configure --enable-static --disable-shared --prefix=/tmp/libevent
           make install
       - env:
           CPPFLAGS: -I/opt/homebrew/opt/openssl@3.3/include -I/tmp/libevent/include
           LDFLAGS: -L/opt/homebrew/opt/openssl@3.3/lib -L/tmp/libevent/lib
+          STEPS_TMUX_VER_OUTPUTS_VERSION: ${{ steps.tmux-ver.outputs.version }}
         name: Build tmux
         run: |
-          curl -L https://github.com/tmux/tmux/releases/download/${{ steps.tmux-ver.outputs.version }}/tmux-${{ steps.tmux-ver.outputs.version }}.tar.gz | tar zxf -
+          curl -L "https://github.com/tmux/tmux/releases/download/${STEPS_TMUX_VER_OUTPUTS_VERSION}/tmux-${STEPS_TMUX_VER_OUTPUTS_VERSION}.tar.gz" | tar zxf -
           cd tmux-*
           ./configure --disable-utf8proc --prefix=/usr/local
           make
