@@ -10,7 +10,7 @@ FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.8.1 AS jq
 
-FROM ghcr.io/mr-karan/doggo:v1.0.5 AS doggo
+FROM ghcr.io/mr-karan/doggo:v1.1.1 AS doggo
 
 FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
