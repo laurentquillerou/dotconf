@@ -18,7 +18,7 @@ FROM ghcr.io/zizmorcore/zizmor:latest AS zizmor
 
 FROM mikefarah/yq:4.49.2 AS yq
 
-FROM projectdiscovery/nuclei:v3.4.10 AS nuclei
+FROM projectdiscovery/nuclei:v3.5.1 AS nuclei
 
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
