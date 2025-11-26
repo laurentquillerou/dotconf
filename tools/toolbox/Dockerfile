@@ -4,7 +4,7 @@ FROM cilium/cilium:v1.18.4 AS cilium
 
 FROM derailed/k9s:v0.50.16 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.9.12 AS uv
+FROM ghcr.io/astral-sh/uv:0.9.13 AS uv
 
 FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
 
