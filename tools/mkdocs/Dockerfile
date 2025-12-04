@@ -1,4 +1,4 @@
-FROM alpine:3.22.2
+FROM alpine:3.23.0
 ENV PATH="/workdir/venv/bin:${PATH}"
 WORKDIR /workdir
 RUN apk add --no-cache  \
