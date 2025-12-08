@@ -5,7 +5,7 @@ RUN apk add --no-cache  \
     && cargo install --version ${TOKEI_VER} tokei
 
 
-FROM alpine:3.22.2
+FROM alpine:latest
 WORKDIR /workdir
 COPY --from=build /usr/local/cargo/bin/tokei /usr/local/bin/
 USER nobody

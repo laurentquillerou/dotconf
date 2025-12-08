@@ -7,7 +7,7 @@ RUN apk add --no-cache \
     curl \
     && curl -L https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VER}/tailspin-${ARCH}-unknown-$(uname -s | tr '[:upper:]' '[:lower:]')-musl.tar.gz | tar zxf - -C /usr/local/bin/
 
-FROM alpine:3.22.2
+FROM alpine:latest
 WORKDIR /workdir
 # COPY --from=build /usr/local/cargo/bin/tspin /usr/local/bin/tspin
 COPY --from=build /usr/local/bin/tspin /usr/local/bin/tspin
