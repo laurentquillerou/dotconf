@@ -16,7 +16,6 @@ RUN apk add --no-cache \
 FROM alpine:latest
 WORKDIR /workdir
 # COPY --from=build /usr/local/cargo/bin/tspin /usr/local/bin/tspin
-COPY --from=build /usr/local/bin/tspin /usr/local/bin/tspin
 RUN apk add --no-cache \
     less
 USER nobody
