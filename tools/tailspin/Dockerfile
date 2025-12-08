@@ -10,7 +10,8 @@ ARG ARCH=x86_64
 ARG TSPIN_VER=5.5.0
 RUN apk add --no-cache \
     curl \
-    && curl -L https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VER}/tailspin-${ARCH}-unknown-$(uname -s | tr '[:upper:]' '[:lower:]')-musl.tar.gz | tar zxf - -C /usr/local/bin/
+    && curl -L "https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VER}/tailspin-${ARCH}-unknown-$(uname -s | tr '[:upper:]' '[:lower:]')-musl.tar.gz" | tar zxf - -C /usr/local/bin/
+
 
 
 FROM alpine:latest
