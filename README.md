@@ -1,5 +1,14 @@
 # dotconf
 
+## Ansible
+
+- Display changes and apply
+
+  ```sh
+  docker run -it -u 0 --rm -v $(pwd)/ansible:/workdir -v ${HOME}/.ssh:/root/.ssh -e ANSIBLE_REMOTE_USER=${USER:-$(whoami)} -v ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK} -e SSH_AUTH_SOCK=${SSH_AUTH_SOCK} ${DTR}/ansible ansible-playbook -i hosts --limit ${DNS} lab.yaml --check --diff
+  docker run -it -u 0 --rm -v $(pwd)/ansible:/workdir -v ${HOME}/.ssh:/root/.ssh -e ANSIBLE_REMOTE_USER=${USER:-$(whoami)} -v ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK} -e SSH_AUTH_SOCK=${SSH_AUTH_SOCK} ${DTR}/ansible ansible-playbook -i hosts lab.yaml
+  ```
+
 ## macOS
 
 ```sh

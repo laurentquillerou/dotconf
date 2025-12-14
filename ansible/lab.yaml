@@ -1,0 +1,6 @@
+---
+- name: Lab
+  hosts: lab
+  become: yes
+  roles:
+    - { role: system }
