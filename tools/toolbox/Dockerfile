@@ -1,6 +1,6 @@
 FROM aquasec/trivy:0.68.2 AS trivy
 
-FROM cilium/cilium:v1.18.5 AS cilium
+FROM cilium/cilium:v1.18.6 AS cilium
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
