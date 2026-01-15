@@ -56,3 +56,14 @@
     state: present
     update_cache: yes
   when: ansible_facts["os_family"] == 'Debian'
+
+- name: Check if reboot is needed
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: stat_reboot_required
+
+- name: Reboot
+  ansible.builtin.reboot:
+    post_reboot_delay: 30
+    reboot_timeout: 120
+  when: stat_reboot_required.stat.exists and not inventory_hostname in groups['data']
