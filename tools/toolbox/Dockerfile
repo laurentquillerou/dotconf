@@ -1,3 +1,5 @@
+FROM alpine/helm:4.0.5 AS helm
+
 FROM aquasec/trivy:0.68.2 AS trivy
 
 FROM cilium/cilium:v1.18.6 AS cilium
@@ -23,12 +25,12 @@ FROM projectdiscovery/nuclei:v3.6.2 AS nuclei
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
 ARG DEBIAN_FRONTEND=noninteractive
-ARG HELM_VER="v3.19.0"
 ARG K8S_VER="v1.34"
 ARG KUNAI_VER="v0.6.0"
 ARG TSPIN_VER="5.5.0"
 COPY --from=cilium /usr/bin/cilium /usr/bin/hubble /usr/local/bin/
 COPY --from=doggo /usr/bin/doggo /usr/local/bin/
+COPY --from=helm /usr/bin/helm /usr/local/bin/
 COPY --from=jq /jq /usr/local/bin/
 COPY --from=k9s /bin/k9s /usr/local/bin/
 COPY --from=nuclei /usr/local/bin/nuclei /usr/local/bin/
@@ -48,7 +50,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(sed -n 's/VERSION_CODENAME=//p' /etc/os-release) main" > /etc/apt/sources.list.d/hashicorp.list \
   && curl -LSfs "https://pkgs.k8s.io/core:/stable:/${K8S_VER}/deb/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg \
   && echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${K8S_VER}/deb/ /" > /etc/apt/sources.list.d/kubernetes.list \
-  && curl -LSfs "https://get.helm.sh/helm-${HELM_VER}-$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}.tar.gz" | tar zxf - -C /usr/local/bin/ --strip-components 1 "$(uname -s | tr '[:upper:]' '[:lower:]')-${ARCH}/helm" \
   && curl -LSfs "https://github.com/bensadeh/tailspin/releases/download/${TSPIN_VER}/tailspin-x86_64-unknown-linux-musl.tar.gz" | tar xzf - -C /usr/local/bin/ \
   && curl -LSfs "https://github.com/kunai-project/kunai/releases/download/${KUNAI_VER}/kunai-${ARCH}" -o /usr/local/bin/kunai \
   && chmod +x /usr/local/bin/*
