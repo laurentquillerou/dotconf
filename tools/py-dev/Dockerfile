@@ -1,4 +1,4 @@
-FROM alpine/helm:4.0.5 AS helm
+FROM alpine/helm:4.1.0 AS helm
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
