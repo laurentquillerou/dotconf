@@ -1,11 +1,10 @@
 FROM alpine:latest
-ENV PATH="/workdir/venv/bin:${PATH}"
+ENV UV_PROJECT_ENVIRONMENT="/uv/.venv"
 WORKDIR /workdir
+COPY pyproject.toml pyproject.toml
 RUN apk add --no-cache  \
-    mkdocs \
-    py3-pathspec \
-    py3-pip \
-    && python3 -m venv /workdir/venv \
-    && pip3 install --no-cache-dir mkdocs-with-confluence
+    python3 \
+    uv \
+    && uv sync
 USER nobody
-ENTRYPOINT ["mkdocs", "build", "-s"]
+ENTRYPOINT ["uv", "run", "mkdocs", "build", "-s"]
