@@ -1,10 +1,10 @@
-FROM alpine/helm:4.0.5 AS helm
+FROM alpine/helm:4.1.0 AS helm
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
 FROM ghcr.io/astral-sh/uv:0.9.26 AS uv
 
-FROM ghcr.io/astral-sh/ruff:0.14.13 AS ruff
+FROM ghcr.io/astral-sh/ruff:0.14.14 AS ruff
 
 FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
 
