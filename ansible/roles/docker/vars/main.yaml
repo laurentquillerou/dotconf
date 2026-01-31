@@ -1,0 +1,4 @@
+docker_bip: "10.10.10.1/24"
+docker_default_address_pools_base: "10.11.11.0/24"
+docker_default_address_pools_size: "28"
+docker_registry_mirrors: "http://localhost:5000"
