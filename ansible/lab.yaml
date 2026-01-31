@@ -1,6 +1,12 @@
 ---
-- name: Lab
+- name: system
   hosts: lab
   become: yes
   roles:
-    - { role: system }
+    - role: system
+
+- name: docker-machine
+  hosts: docker
+  become: yes
+  roles:
+    - role: docker
