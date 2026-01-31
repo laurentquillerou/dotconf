@@ -49,6 +49,7 @@
       - htop
       - open-vm-tools
       - prometheus-node-exporter
+      - python3-debian
       - tmux
       - unattended-upgrades
       - vim-nox
