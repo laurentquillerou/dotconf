@@ -1,0 +1,19 @@
+---
+- name: Debian - Add plexmediaserver repositories
+  ansible.builtin.deb822_repository:
+    name: plex
+    types: deb
+    uris: "https://downloads.plex.tv/repo/deb"
+    suites: "public"
+    components: "main"
+    architectures: amd64
+    signed_by: https://downloads.plex.tv/plex-keys/PlexSign.key
+  when: ansible_facts["os_family"] == 'Debian'
+
+- name: Debian - Install plexmediaserver packages
+  ansible.builtin.apt:
+    name:
+      - plexmediaserver
+    state: present
+    update_cache: yes
+  when: ansible_facts["os_family"] == 'Debian'

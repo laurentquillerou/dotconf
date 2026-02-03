@@ -10,3 +10,10 @@
   become: yes
   roles:
     - role: docker
+
+- name: streaming
+  hosts: infotainment
+  become: yes
+  roles:
+    - role: jellyfin
+    - role: plex
