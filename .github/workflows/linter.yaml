@@ -21,7 +21,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: ${{ github.ref == 'refs/heads/main' }}
           VALIDATE_BIOME_FORMAT: false
         name: Run super-linter
-        uses: super-linter/super-linter@v8.4.0
+        uses: super-linter/super-linter@v8.5.0
 name: Lint - Code base
 on:
   push:
