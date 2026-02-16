@@ -6,7 +6,7 @@ FROM cilium/cilium:v1.19.0 AS cilium
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.10.2 AS uv
+FROM ghcr.io/astral-sh/uv:0.10.3 AS uv
 
 FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
 
@@ -18,7 +18,7 @@ FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
 FROM ghcr.io/zizmorcore/zizmor:latest AS zizmor
 
-FROM mikefarah/yq:4.52.2 AS yq
+FROM mikefarah/yq:4.52.4 AS yq
 
 FROM projectdiscovery/nuclei:v3.7.0 AS nuclei
 
