@@ -2,11 +2,11 @@ FROM alpine/helm:4.1.1 AS helm
 
 FROM aquasec/trivy:0.69.1 AS trivy
 
-FROM cilium/cilium:v1.19.0 AS cilium
+FROM cilium/cilium:v1.19.1 AS cilium
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.10.3 AS uv
+FROM ghcr.io/astral-sh/uv:0.10.4 AS uv
 
 FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
 
