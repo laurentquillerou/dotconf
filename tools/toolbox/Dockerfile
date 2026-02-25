@@ -6,13 +6,13 @@ FROM cilium/cilium:v1.19.1 AS cilium
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.10.4 AS uv
+FROM ghcr.io/astral-sh/uv:0.10.5 AS uv
 
-FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.12.1-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.8.1 AS jq
 
-FROM ghcr.io/mr-karan/doggo:v1.1.4 AS doggo
+FROM ghcr.io/mr-karan/doggo:v1.1.5 AS doggo
 
 FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
