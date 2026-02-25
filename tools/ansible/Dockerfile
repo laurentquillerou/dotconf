@@ -1,4 +1,4 @@
-FROM ghcr.io/getsops/sops:v3.11.0-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.12.1-alpine AS sops
 
 
 FROM alpine:latest
