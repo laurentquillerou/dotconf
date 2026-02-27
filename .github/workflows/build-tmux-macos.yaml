@@ -33,7 +33,7 @@ jobs:
         name: Get artifact path
         run: echo "path=$(find "${GITHUB_WORKSPACE}" -name 'tmux')" >> "${GITHUB_OUTPUT}"
       - name: Publish
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: tmux-darwin-arm64
           path: ${{ steps.artifact.outputs.path }}
