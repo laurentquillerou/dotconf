@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.CONTAINER_REGISTRY_USER }}
       - if: ${{ github.ref != 'refs/heads/main' }}
         name: Build branch
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: tools/mkdocs/Dockerfile
@@ -25,7 +25,7 @@ jobs:
           tags: matamun/mkdocs:${{ steps.short-sha.outputs.tag }}
       - if: ${{ github.ref == 'refs/heads/main' }}
         name: Build main
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: tools/mkdocs/Dockerfile
