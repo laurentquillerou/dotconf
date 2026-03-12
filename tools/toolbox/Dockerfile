@@ -1,4 +1,4 @@
-FROM alpine/helm:4.1.1 AS helm
+FROM alpine/helm:4.1.3 AS helm
 
 FROM aquasec/trivy:0.69.3 AS trivy
 
