@@ -2,7 +2,7 @@ FROM alpine/helm:4.1.3 AS helm
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
-FROM ghcr.io/astral-sh/uv:0.10.9 AS uv
+FROM ghcr.io/astral-sh/uv:0.10.10 AS uv
 
 FROM ghcr.io/astral-sh/ruff:0.15.6 AS ruff
 
