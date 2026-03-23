@@ -2,7 +2,7 @@ FROM alpine/helm:4.1.3 AS helm
 
 FROM aquasec/trivy:0.69.3 AS trivy
 
-FROM cilium/cilium:v1.19.1 AS cilium
+FROM cilium/cilium:v1.19.2 AS cilium
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
