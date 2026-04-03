@@ -1,17 +1,17 @@
 ---
-- name: system
+- name: System
   hosts: lab
   become: yes
   roles:
     - role: system
 
-- name: docker-machine
+- name: Docker-machine
   hosts: docker
   become: yes
   roles:
     - role: docker
 
-- name: streaming
+- name: Streaming
   hosts: infotainment
   become: yes
   roles:
