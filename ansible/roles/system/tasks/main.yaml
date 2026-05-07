@@ -1,4 +1,18 @@
 ---
+- name: Remove unnecessary drivers
+  ansible.builtin.lineinfile:
+    path: "/etc/modprobe.d/disable-{{ item }}.conf"
+    line: "install {{ item }} /bin/false"
+    create: yes
+    mode: "0644"
+  loop:
+    - algif_aead
+    - esp4
+    - esp6
+    - firewire-core
+    - rxrpc
+    - thunderbolt
+
 - name: Alpine - Update all packages to the latest version
   community.general.apk:
     available: true
