@@ -1,18 +1,18 @@
-FROM alpine/helm:4.1.3 AS helm
+FROM alpine/helm:4.2.0 AS helm
 
-FROM aquasec/trivy:0.69.3 AS trivy
+FROM aquasec/trivy:0.70.0 AS trivy
 
-FROM cilium/cilium:v1.19.2 AS cilium
+FROM cilium/cilium:v1.19.4 AS cilium
 
 FROM derailed/k9s:v0.50.18 AS k9s
 
-FROM ghcr.io/astral-sh/ruff:0.15.8 AS ruff
+FROM ghcr.io/astral-sh/ruff:0.15.13 AS ruff
 
-FROM ghcr.io/astral-sh/uv:0.11.3 AS uv
+FROM ghcr.io/astral-sh/uv:0.11.15 AS uv
 
 FROM ghcr.io/sigstore/cosign/cosign:v3.0.5 AS cosign
 
-FROM ghcr.io/getsops/sops:v3.12.2-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.13.1-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.8.1 AS jq
 
@@ -22,16 +22,16 @@ FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
 FROM ghcr.io/zizmorcore/zizmor:latest AS zizmor
 
-FROM mikefarah/yq:4.52.5 AS yq
+FROM mikefarah/yq:4.53.2 AS yq
 
-FROM projectdiscovery/nuclei:v3.7.1 AS nuclei
+FROM projectdiscovery/nuclei:v3.8.0 AS nuclei
 
 FROM debian:stable-backports AS bootstrap
 ARG ARCH=amd64
 ARG DEBIAN_FRONTEND=noninteractive
 ARG K8S_VER="v1.34"
 ARG KUNAI_VER="v0.6.0"
-ARG TSPIN_VER="5.5.0"
+ARG TSPIN_VER="6.1.0"
 COPY --from=cilium /usr/bin/cilium /usr/bin/hubble /usr/local/bin/
 COPY --from=cosign /ko-app/cosign /usr/local/bin/
 COPY --from=doggo /usr/bin/doggo /usr/local/bin/
@@ -50,8 +50,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   ca-certificates \
   curl \
   gnupg \
-  && curl -LSfs "https://aquasecurity.github.io/trivy-repo/deb/public.key" | gpg --dearmor -o /etc/apt/keyrings/trivy.gpg \
-  && echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" > /etc/apt/sources.list.d/trivy.list \
   && curl -LSfs "https://apt.releases.hashicorp.com/gpg" | gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg \
   && echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(sed -n 's/VERSION_CODENAME=//p' /etc/os-release) main" > /etc/apt/sources.list.d/hashicorp.list \
   && curl -LSfs "https://pkgs.k8s.io/core:/stable:/${K8S_VER}/deb/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg \
