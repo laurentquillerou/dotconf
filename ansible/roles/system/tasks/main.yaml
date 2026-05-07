@@ -1,4 +1,18 @@
 ---
+- name: Remove unnecessary drivers
+  ansible.builtin.lineinfile:
+    path: "/etc/modprobe.d/disable-{{ item }}.conf"
+    line: "install {{ item }} /bin/false"
+    create: yes
+    mode: "0644"
+  loop:
+    - algif_aead
+    - esp4
+    - esp6
+    - firewire-core
+    - rxrpc
+    - thunderbolt
+
 - name: Alpine - Update all packages to the latest version
   community.general.apk:
     available: true
@@ -67,6 +81,18 @@
 
 - name: Reboot
   ansible.builtin.reboot:
-    post_reboot_delay: 45
-    reboot_timeout: 120
+    post_reboot_delay: 60
+    reboot_timeout: 180
   when: system_stat_reboot_required.stat.exists and not inventory_hostname in groups['data']
+
+- name: Set default umask
+  ansible.builtin.lineinfile:
+    path: /etc/profile
+    line: umask 0022
+    create: yes
+    mode: "0644"
+
+- name: Add wheel group
+  ansible.builtin.group:
+    name: wheel
+    state: present
