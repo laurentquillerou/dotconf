@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # need full git history
           fetch-depth: 0
@@ -22,7 +22,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: ${{ github.ref == 'refs/heads/main' }}
           VALIDATE_BIOME_FORMAT: false
         name: Run super-linter
-        uses: super-linter/super-linter@v8.6.0
+        uses: super-linter/super-linter@v8.7.0
 name: Lint - Code base
 on:
   push:

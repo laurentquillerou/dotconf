@@ -7,7 +7,7 @@ registries:
     username: ${{ secrets.CONTAINER_REGISTRY_USER }}
 updates:
   - cooldown:
-      default-days: 7
+      default-days: 1
     directory: /tools/ansible/
     package-ecosystem: docker
     registries:
@@ -15,7 +15,7 @@ updates:
     schedule:
       interval: daily
   - cooldown:
-      default-days: 7
+      default-days: 1
     directory: /tools/mkdocs/
     package-ecosystem: docker
     registries:
@@ -23,7 +23,7 @@ updates:
     schedule:
       interval: daily
   - cooldown:
-      default-days: 7
+      default-days: 1
     directory: /tools/tailspin/
     package-ecosystem: docker
     registries:
@@ -31,7 +31,7 @@ updates:
     schedule:
       interval: daily
   - cooldown:
-      default-days: 7
+      default-days: 1
     directory: /tools/tokei/
     package-ecosystem: docker
     registries:
@@ -39,7 +39,7 @@ updates:
     schedule:
       interval: daily
   - cooldown:
-      default-days: 7
+      default-days: 1
     directory: /tools/toolbox/
     package-ecosystem: docker
     registries:
@@ -47,7 +47,7 @@ updates:
     schedule:
       interval: daily
   - cooldown:
-      default-days: 7
+      default-days: 1
     directory: /
     package-ecosystem: github-actions
     schedule:
