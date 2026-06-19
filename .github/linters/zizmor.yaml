@@ -1,4 +1,9 @@
 rules:
+  secrets-outside-env:
+    config:
+      allow:
+        - CONTAINER_REGISTRY_TOKEN
+        - CONTAINER_REGISTRY_USER
   unpinned-uses:
     config:
       policies:
