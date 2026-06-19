@@ -11,11 +11,11 @@
   roles:
     - role: docker
 
-- name: Kubernetes
-  hosts: kube
-  become: yes
-  roles:
-    - role: kube
+#- name: Kubernetes
+#  hosts: kube
+#  become: yes
+#  roles:
+#    - role: kube
 
 - name: Streaming
   hosts: infotainment
