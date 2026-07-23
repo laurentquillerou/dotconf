@@ -5,10 +5,10 @@ jobs:
     steps:
       - id: libevent-ver
         name: Set libevent-ver
-        run: echo "version=2.1.12" >> "${GITHUB_OUTPUT}"
+        run: echo "version=2.1.13" >> "${GITHUB_OUTPUT}"
       - id: tmux-ver
         name: Set tmux-ver
-        run: echo "version=3.6a" >> "${GITHUB_OUTPUT}"
+        run: echo "version=3.7b" >> "${GITHUB_OUTPUT}"
       - env:
           CPPFLAGS: -I/opt/homebrew/openssl@3.3/include
           LDFLAGS: -L/opt/homebrew/openssl@3.3/lib
