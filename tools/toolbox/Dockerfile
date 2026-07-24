@@ -12,7 +12,7 @@ FROM ghcr.io/astral-sh/uv:0.11.31 AS uv
 
 FROM ghcr.io/sigstore/cosign/cosign:v3.1.2 AS cosign
 
-FROM ghcr.io/getsops/sops:v3.13.1-alpine AS sops
+FROM ghcr.io/getsops/sops:v3.13.3-alpine AS sops
 
 FROM ghcr.io/jqlang/jq:1.8.1 AS jq
 
