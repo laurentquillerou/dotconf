@@ -14,7 +14,7 @@ FROM ghcr.io/sigstore/cosign/cosign:v3.1.2 AS cosign
 
 FROM ghcr.io/getsops/sops:v3.13.3-alpine AS sops
 
-FROM ghcr.io/jqlang/jq:1.8.1 AS jq
+FROM ghcr.io/jqlang/jq:1.8.2 AS jq
 
 FROM ghcr.io/mr-karan/doggo:v1.1.5 AS doggo
 
