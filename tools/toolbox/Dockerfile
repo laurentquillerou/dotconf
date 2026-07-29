@@ -8,7 +8,7 @@ FROM derailed/k9s:v0.50.18 AS k9s
 
 FROM ghcr.io/astral-sh/ruff:0.16.0 AS ruff
 
-FROM ghcr.io/astral-sh/uv:0.11.32 AS uv
+FROM ghcr.io/astral-sh/uv:0.11.33 AS uv
 
 FROM ghcr.io/sigstore/cosign/cosign:v3.1.2 AS cosign
 
