@@ -1,6 +1,6 @@
 FROM alpine/helm:4.2.3 AS helm
 
-FROM aquasec/trivy:0.72.0 AS trivy
+FROM aquasec/trivy:0.73.0 AS trivy
 
 FROM cilium/cilium:v1.19.6 AS cilium
 
