@@ -10,7 +10,7 @@ FROM ghcr.io/astral-sh/ruff:0.16.1 AS ruff
 
 FROM ghcr.io/astral-sh/uv:0.12.1 AS uv
 
-FROM ghcr.io/sigstore/cosign/cosign:v3.1.2 AS cosign
+FROM ghcr.io/sigstore/cosign/cosign:v3.1.3 AS cosign
 
 FROM ghcr.io/getsops/sops:v3.13.3-alpine AS sops
 
