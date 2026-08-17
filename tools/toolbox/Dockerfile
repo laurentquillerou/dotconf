@@ -1,6 +1,6 @@
-FROM alpine/helm:4.2.3 AS helm
+FROM alpine/helm:4.2.4 AS helm
 
-FROM aquasec/trivy:0.73.0 AS trivy
+FROM aquasec/trivy:0.74.0 AS trivy
 
 FROM cilium/cilium:v1.20.0 AS cilium
 
@@ -8,7 +8,7 @@ FROM derailed/k9s:latest AS k9s
 
 FROM ghcr.io/astral-sh/ruff:0.16.3 AS ruff
 
-FROM ghcr.io/astral-sh/uv:0.12.3 AS uv
+FROM ghcr.io/astral-sh/uv:0.12.5 AS uv
 
 FROM ghcr.io/sigstore/cosign/cosign:v3.1.3 AS cosign
 
@@ -65,7 +65,7 @@ WORKDIR /workdir
 COPY --from=bootstrap /usr/ /usr/
 COPY --from=bootstrap /etc/ /etc/
 RUN apt-get update \
-  && apt-get upgrade \
+  && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y \
   boundary \
   ca-certificates \
