@@ -22,7 +22,7 @@ FROM ghcr.io/xampprocky/tokei:latest AS tokei
 
 FROM ghcr.io/zizmorcore/zizmor:latest AS zizmor
 
-FROM mikefarah/yq:4.53.4 AS yq
+FROM mikefarah/yq:4.53.6 AS yq
 
 FROM projectdiscovery/nuclei:v3.11.1 AS nuclei
 
