@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:0.12.9 AS uv
+FROM ghcr.io/astral-sh/uv:0.12.12 AS uv
 
 FROM alpine:latest
 ENV UV_TOOL_DIR="/workdir/tools" \
