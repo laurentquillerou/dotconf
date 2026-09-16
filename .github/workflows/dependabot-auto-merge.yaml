@@ -1,4 +1,8 @@
 ---
+concurrency:
+  cancel-in-progress: false
+  group: ${{ github.workflow }}
+  queue: max
 jobs:
   dependabot-auto-merge:
     if: github.event.pull_request.user.login == 'dependabot[bot]'
