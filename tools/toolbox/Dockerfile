@@ -6,7 +6,7 @@ FROM cilium/cilium:v1.20.2 AS cilium
 
 FROM derailed/k9s:latest AS k9s
 
-FROM ghcr.io/astral-sh/ruff:0.16.9 AS ruff
+FROM ghcr.io/astral-sh/ruff:0.16.10 AS ruff
 
 FROM ghcr.io/astral-sh/uv:0.12.21 AS uv
 
